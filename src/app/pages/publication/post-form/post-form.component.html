@@ -1,0 +1,43 @@
+<style>
+  .post-form-mat-card {
+    width: calc(90%);
+    margin: auto;
+  }
+  .example-full-width {
+    width: 100%;
+  }
+  .medium-width {
+    width: calc(50%);
+    margin:auto;
+  }
+</style>
+
+<mat-card class="post-form-mat-card">
+  <mat-form-field appearance="fill" class="example-full-width">
+    <textarea #txt matInput placeholder="Ex. It makes me feel..." id="setPost"></textarea>
+  </mat-form-field>
+  <mat-card-actions align="end">
+    <button mat-button (click)="multimediaDialog = true" id="buttonClip"><mat-icon>link</mat-icon></button>
+    <button mat-raised-button color="primary" (click)="postPost(txt)" value="upload" id="buttonPost">Post</button>
+
+  </mat-card-actions>
+</mat-card>
+
+<div *ngIf="multimediaDialog">
+  <br>
+  <mat-card class="medium-width">
+    <input
+      #txtDialog1
+      matInput
+      placeholder="Ex. https://content.ext"
+      type="text"
+    >
+    <input type="file" (change)="onFileChanged($event)" id="setimage">
+
+    <mat-card-actions align="end">
+      <button mat-button color="primary" (click)="multimediaDialog = false" id="buttonClose">Close</button>
+      <button mat-raised-button color="primary"
+              (click)="getLinkFromDialog(txtDialog1); multimediaDialog = false" id="buttonAppend">Append</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
