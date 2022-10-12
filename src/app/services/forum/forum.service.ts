@@ -10,9 +10,8 @@ import { ForumRules } from 'src/app/models/ForumRules';
 })
 export class ForumService {
 
-  basePath = environment.productoURL+'/forums';
-  basePath2=environment.productoURL+"/user";
-  basePath3=environment.productoURL
+  basePath = 'http://localhost:8083/api/v1/forumservice';
+ 
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -36,7 +35,7 @@ export class ForumService {
   
   // Create Forum
   create(item: any,id:number): Observable<Forum> {
-    return this.http.post<Forum>(`${this.basePath2}/${id}/forums`, JSON.stringify(item), this.httpOptions)
+    return this.http.post<Forum>(`${this.basePath}/user/${id}/forums`, JSON.stringify(item), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
@@ -44,7 +43,7 @@ export class ForumService {
   
   // Get Forum by id
   getById(id: any): Observable<Forum> {
-    return this.http.get<Forum>(`${this.basePath}/${id}`, this.httpOptions)
+    return this.http.get<Forum>(`${this.basePath}/forums/${id}`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
@@ -52,7 +51,7 @@ export class ForumService {
   
   // Get All Forums
   getAll(): Observable<Forum> {
-    return this.http.get<Forum>(this.basePath, this.httpOptions)
+    return this.http.get<Forum>(`${this.basePath}/forums`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
@@ -60,7 +59,7 @@ export class ForumService {
   
   // Update Forum
   update(id: any, item: any): Observable<ForumRules> {
-    return this.http.put<ForumRules>(`${this.basePath3}/conductrules/${id}`, JSON.stringify(item), this.httpOptions)
+    return this.http.put<ForumRules>(`${this.basePath}/chagetules/${id}`, JSON.stringify(item), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
@@ -68,7 +67,7 @@ export class ForumService {
   
   // Delete Forum
   delete(id: any) {
-    return this.http.delete(`${this.basePath}/${id}`, this.httpOptions)
+    return this.http.delete(`${this.basePath}/forums/${id}`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));

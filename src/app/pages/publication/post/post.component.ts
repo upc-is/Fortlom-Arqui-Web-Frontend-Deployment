@@ -6,7 +6,7 @@ import { Person } from 'src/app/models/Person';
 import { Component, OnInit,Input } from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import { Report } from 'src/app/models/report';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Route} from "@angular/router";
 import { ReportService } from 'src/app/services/report/report.service';
 import { MultimediaService } from 'src/app/services/multimedia/multimedia.service';
 import { PersonService } from 'src/app/services/person/person.service';
@@ -37,6 +37,7 @@ export class PostComponent implements OnInit {
   dbImage: any;
 name!:string
 lastname!:string
+idop!:number
 descripcion!:string
   @Input()
   textPart = "...";
@@ -53,7 +54,8 @@ descripcion!:string
               private usuarioservice: PersonService,
               private httpClient:HttpClient,
               private $route: ActivatedRoute,
-              public dialog:MatDialog) {
+              public dialog:MatDialog,
+              private route:ActivatedRoute) {
     this.report={}as Report
     this.studentData = {}
     this.dataSource = new MatTableDataSource<any>();
@@ -65,16 +67,13 @@ descripcion!:string
 
     this.name=this.fullPost.artist.realname;
     this.lastname=this.fullPost.artist.lastname
-    this.descripcion=this.fullPost.publicationDescription
-    this.multimediaService.getallmultimediabypublication(this.fullPost.id).subscribe((response:any)=>{
+     this.idop=parseInt(this.route.snapshot.paramMap.get('id')!);
+    this.descripcion=this.fullPost.description
+    this.multimediaService.getImageByPublicationId(this.fullPost.id).subscribe((response:any)=>{
 
-        console.log(response.length)
-         for (var char of response){
-          this.dbImage = 'data:image/jpeg;base64,' + char.image
-           this.arrayimage.push( this.dbImage)
-
-         }
-         console.log(this.arrayimage)
+       
+         
+       this.arrayimage=response.content
 
 
     })
@@ -97,7 +96,7 @@ descripcion!:string
 
 
   likePost(): void {
-    this.fullPost.likes += 1;
+    //this.fullPost.likes += 1;
     this.postService.update(this.fullPost.id, this.fullPost)
        
       .subscribe((response: any) => {
@@ -106,7 +105,7 @@ descripcion!:string
       });
   }
   dislikePost(): void {
-    this.fullPost.likes -= 1;
+    //this.fullPost.likes -= 1;
     this.postService.update(this.fullPost.id, this.fullPost)
       .subscribe((response: any) => {
         console.log(response);

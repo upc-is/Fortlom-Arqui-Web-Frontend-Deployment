@@ -11,5 +11,5 @@ export interface Person {
 
     password:string;
 
-    content:any;
+    
 }

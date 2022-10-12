@@ -53,9 +53,9 @@ onSubmit(){
  this.authService.LogUser(this.loginUsuario).subscribe(
   data=>{
     this.tokenService.setToken(data.token)
-    if(this.tokenService.isartist()==true){
+    if(this.tokenService.isartist()==true||this.tokenService.isartistupdagre()==true){
       console.log("es artista")
-      this.serivcearti.getByname(this.tokenService.getUserName()).subscribe((response:any)=>{
+      this.serivcearti.getUserByartistname(this.tokenService.getUserName()).subscribe((response:any)=>{
 
         
         this.route.navigate([`/HomeArtist/${response.id}`]);
@@ -64,7 +64,7 @@ onSubmit(){
     }
     if(this.tokenService.isfanatic()==true){
       console.log("es fanatic")
-      this.servicefana.getByname(this.tokenService.getUserName()).subscribe((response:any)=>{
+      this.servicefana.getUserByfanaticname(this.tokenService.getUserName()).subscribe((response:any)=>{
 
         this.route.navigate([`/HomeFanatic/${response.id}`]);
       })

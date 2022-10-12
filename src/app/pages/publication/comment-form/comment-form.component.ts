@@ -32,6 +32,9 @@ export class CommentFormComponent implements OnInit {
     this.commentData.commentdescription = txt.value;
     //this.commentData.PublicationID = this.postId;
     this.commentData.registerdate = today; //change
+    console.log(this.commentData)
+    console.log(user)
+    console.log(this.postId)
     this.commentService.create(this.commentData, user, this.postId).subscribe((response: any) => {
       this.dataSource.data.push({...response});
       this.dataSource.data = this.dataSource.data.map((o:any)=>{return o;});

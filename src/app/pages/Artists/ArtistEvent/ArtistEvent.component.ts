@@ -1,3 +1,5 @@
+import { ArtistService } from 'src/app/services/artist/artist.service';
+import { AnswerService } from './../../../services/answer/answer.service';
 import { EventService } from './../../../services/event/event.service';
 import { Component, OnInit,ViewChild } from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
@@ -49,7 +51,8 @@ export class ArtistEventComponent implements OnInit {
   proDate = new Date();
   proDatevalue!:string;
 
-  constructor(private eventService: EventService,private userService: PersonService,private dialog:MatDialog, private route:ActivatedRoute,private datePipe: DatePipe) {
+  constructor(private eventService: EventService,private userService: PersonService,private dialog:MatDialog, private route:ActivatedRoute,private datePipe: DatePipe,
+    private AnswerService:AnswerService,private ArtistService:ArtistService) {
     this.eventdata = {} as Event;
     this.userdata = {} as Person;
     this.dataSource = new MatTableDataSource<any>();
@@ -64,7 +67,7 @@ export class ArtistEventComponent implements OnInit {
     this.idevent=id;
     console.log(this.idevent);
     
-  this.getByIdUser(1)
+   
   }
 
   getAllEvents() {
@@ -73,7 +76,7 @@ export class ArtistEventComponent implements OnInit {
       this.dataSource.paginator=this.paginator;
       this.arrayevents = response.content;
       console.log("array")
-      console.log(this.arrayevents)
+      
     });
   }
 
@@ -93,11 +96,15 @@ export class ArtistEventComponent implements OnInit {
   addEvent() {
     console.log(this.idevent);
     console.log(this.eventdata);
-    this.eventdata.eventlikes=0
+    //this.eventdata.eventlikes=0
     this.eventService.create(this.idevent,this.eventdata).subscribe((response: any) => {
+      this.ArtistService.getById(this.idevent).subscribe((response2:any)=>{
+        response.artist=response2
+        this.arrayevents.push( {...response});
+        this.arrayevents = this.arrayevents.map((o: any) => { return o; });
+      })
+      
      
-      this.arrayevents.push( {...response});
-      this.arrayevents = this.arrayevents.map((o: any) => { return o; });
     },err=>{
       alert("campos mal puestos")
     });
@@ -110,7 +117,12 @@ export class ArtistEventComponent implements OnInit {
     this.EventForm.resetForm();
   }
 
-  
+  getlikes(id:number){
+     this.AnswerService.getAllOpinionsByagreeandContentId(id,true).subscribe((response: any)=>{
+          console.log(response.content.length)
+           return response.content.length
+     })
+  }
 
   
 
@@ -151,9 +163,9 @@ export class ArtistEventComponent implements OnInit {
       this.dataSource.paginator=this.paginator;
       this.eventdata = response
 
-      var presentlikes = this.eventdata.eventlikes;
-      var finalLikes = presentlikes + 1;
-      this.eventdata.eventlikes = finalLikes
+      //var presentlikes = this.eventdata.eventlikes;
+      //var finalLikes = presentlikes + 1;
+      //this.eventdata.eventlikes = finalLikes
 
       this.eventService.update(this.eventdata.id, this.eventdata).subscribe((response: any) => {
         this.arrayevents = this.arrayevents.map((o: Event) => {
@@ -173,9 +185,9 @@ export class ArtistEventComponent implements OnInit {
       this.dataSource.paginator=this.paginator;
       this.eventdata = response
 
-      var presentlikes = this.eventdata.eventlikes;
-      var finalLikes = presentlikes - 1;
-      this.eventdata.eventlikes = finalLikes
+      //var presentlikes = this.eventdata.eventlikes;
+      //var finalLikes = presentlikes - 1;
+      //this.eventdata.eventlikes = finalLikes
 
       this.eventService.update(this.eventdata.id, this.eventdata).subscribe((response: any) => {
         this.arrayevents = this.arrayevents.map((o: Event) => {

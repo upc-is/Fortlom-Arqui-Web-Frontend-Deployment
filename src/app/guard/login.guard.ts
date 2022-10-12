@@ -22,20 +22,25 @@ export class LoginGuard implements CanActivate {
     if (this.tokenService.isLogged()) {
 
       const expectedRol = next.data.expectedRol;
-      this.realRol = this.tokenService.isfanatic() ? 'Role_Fanatic' : 'Role_Artist';
-      
+       console.log(expectedRol)
+      if(this.tokenService.isfanatic()){
+        this.realRol='Role_Fanatic'
+      }else{
+        this.realRol = this.tokenService.isartist() ? 'Role_Artist' : 'Role_Upgrade_Artist';
+        console.log(this.realRol)
+      }
       
 
            if(this.realRol=='Role_Fanatic'){
-            this.servicefana.getByname(this.tokenService.getUserName()).subscribe((response:any)=>{
+            this.servicefana.getUserByfanaticname(this.tokenService.getUserName()).subscribe((response:any)=>{
 
               this.router.navigate([`/HomeFanatic/${response.id}`]);
               return false;
             })
            }
-           if(this.realRol=='Role_Artist'){
-
-            this.serivcearti.getByname(this.tokenService.getUserName()).subscribe((response:any)=>{
+           if(this.realRol=='Role_Artist'||this.realRol=='Role_Upgrade_Artist'){
+            
+            this.serivcearti.getUserByartistname(this.tokenService.getUserName()).subscribe((response:any)=>{
 
               console.log("ya es artista")
               this.router.navigate([`/HomeArtist/${response.id}`]);

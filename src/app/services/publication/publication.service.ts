@@ -10,8 +10,8 @@ import { Publication } from 'src/app/models/publication';
 export class PublicationService {
 
 
-  basePath = environment.productoURL+'/publications';
-  basepath2= environment.productoURL+'/artists';
+  basePath ='http://localhost:8082/api/v1/contentservice';
+  
   
   httpOptions = {
     headers: new HttpHeaders({
@@ -35,8 +35,8 @@ export class PublicationService {
   }
   
   // Create Publicacion
-  create(item: Publication,id:number): Observable<Publication> {
-    return this.http.post<Publication>(`${this.basepath2}/${id}/publications`, JSON.stringify(item), this.httpOptions)
+  create(item: Publication,artistId:number,type:string): Observable<Publication> {
+    return this.http.post<Publication>(`${this.basePath}/artists/${artistId}/type/${type}/publications`, JSON.stringify(item), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
@@ -44,7 +44,7 @@ export class PublicationService {
   
   // Get Publicacion by id
   getById(id: any): Observable<Publication> {
-    return this.http.get<Publication>(`${this.basePath}/${id}`, this.httpOptions)
+    return this.http.get<Publication>(`${this.basePath}/publications/${id}`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
@@ -52,7 +52,7 @@ export class PublicationService {
   
   // Get All Publicaciones
   getAll(): Observable<Publication> {
-    return this.http.get<Publication>(this.basePath, this.httpOptions)
+    return this.http.get<Publication>(`${this.basePath}/publications`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
@@ -68,11 +68,17 @@ export class PublicationService {
   
   // Delete Publicacion
   delete(id: any) {
-    return this.http.delete(`${this.basePath}/${id}`, this.httpOptions)
+    return this.http.delete(`${this.basePath}/publications/${id}`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
   }
-
+  getAllPublicationByArtistId(artistId:number): Observable<Publication>
+  {
+    return this.http.get<Publication>(`${this.basePath}/artists/${artistId}/publications`, this.httpOptions)
+    .pipe(
+      retry(2),
+      catchError(this.handleError));
+  }
 
 }

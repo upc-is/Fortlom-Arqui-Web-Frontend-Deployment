@@ -34,7 +34,7 @@ export class ForumPageComponent implements OnInit {
   username!:string;
   userlastname!:string
   forumdescription!:string
-  conductrules!:string
+  forumrules!:string
   iddepaso!:number
   newcommentform!:FormGroup
   rules!:FormGroup
@@ -59,6 +59,7 @@ export class ForumPageComponent implements OnInit {
     let pod=parseInt(this.route.snapshot.paramMap.get('forumid')!);
     let id= pod;
     this.idforum=id;
+    console.log(this.idforum)
     this.getidforum(this.idforum)
     let pad=parseInt(this.route.snapshot.paramMap.get('id')!);
     let id2= pad;
@@ -76,7 +77,7 @@ export class ForumPageComponent implements OnInit {
     })
     this.rules=this.formBuilder.group({
 
-       setrules:[this.conductrules,Validators.required]
+       setrules:[this.forumrules,Validators.required]
 
 
     })
@@ -88,13 +89,17 @@ export class ForumPageComponent implements OnInit {
 
      this.forum=response;
      console.log("inicio");
-      //console.log(this.forum);
+      console.log(this.forum);
+      console.log(this.forum.forumrules)
+      console.log(this.forumrules)
+      this.forumrules=this.forum.forumrules
       this.forumname=this.forum.forumname;
-      this.reportid=this.forum.person.id
+      this.reportid=this.forum.userAccount.id
       this.forumdescription=this.forum.forumdescription
-      this.conductrules=this.forum.conductrules
-      //console.log(this.forum.user)
-      this.getidUser(this.forum.person.id)
+      
+     
+    
+      this.getidUser(this.forum.userAccount.id)
 
     });
 
@@ -143,7 +148,8 @@ export class ForumPageComponent implements OnInit {
   }
 
   createrules(){
-
+    console.log(this.idforum)
+    console.log(this.ForumRules)
     this.service.update(this.idforum,this.ForumRules)
     .subscribe((response:any)=>{
 

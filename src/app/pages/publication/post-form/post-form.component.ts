@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {MatTableDataSource} from "@angular/material/table";
 import { Multimedia } from 'src/app/models/multimedia';
@@ -12,7 +12,6 @@ import { MultimediaService } from 'src/app/services/multimedia/multimedia.servic
   styleUrls: ['./post-form.component.css']
 })
 export class PostFormComponent implements OnInit {
-
 
 
   aux1:any;
@@ -40,24 +39,30 @@ export class PostFormComponent implements OnInit {
   }
 
   selectedFile!: File;
+  imagenMin!: File;
   public onFileChanged(event:any) {
     //Select File
     this.selectedFile = event.target.files[0];
+    const fr = new FileReader();
+    fr.onload = (evento: any) => {
+      this.imagenMin = evento.target.result;
+    };
+    fr.readAsDataURL(this.selectedFile);
   }
 
   postPost(txt: HTMLTextAreaElement): void {
 
-    this.postData.publicationDescription = txt.value;
-    this.postData.likes=3
+    this.postData.description = txt.value;
+   
     const tail=Math.random().toString(8).substr(2);
     console.log(tail.length)
 
-    this.postData.publicationName=tail
+    
 
 
     console.log(this.postData)
-
-    this.postService.create(this.postData, +this.$route.snapshot.params['id']).subscribe((response: any) => {
+    let mayus=this.auxLinks.length > 0
+    this.postService.create(this.postData, +this.$route.snapshot.params['id'],String(mayus)).subscribe((response: any) => {
 
       this.dataSource2.data.push( {...response});
       console.log(response.id)
@@ -75,15 +80,12 @@ export class PostFormComponent implements OnInit {
         console.log("bbbbbbbbbbbbb")
         for (let i of this.auxLinks){
 
-          this.httpClient.post("http://localhost:8080/api/v1/publications/"+response.id+"/multimedias", i, { observe: 'response' })
-          .subscribe((response) => {
-            if (response.status === 200) {
-              console.log('Image uploaded successfully');
-            } else {
-               console.log('Image not uploaded successfully')
-            }
-          }
-          );
+          this.multimediaService.createimageforpublication(i,response.id).subscribe((response: any)=>{
+
+          })
+         
+
+
 
 
 
@@ -110,9 +112,8 @@ export class PostFormComponent implements OnInit {
     });
 }
   getLinkFromDialog(txt: HTMLInputElement): void {
-    const uploadImageData = new FormData();
-    uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
-    this.auxLinks.push(uploadImageData);
+    
+    this.auxLinks.push(this.selectedFile);
     console.log(this.auxLinks)
   }
 probar(){

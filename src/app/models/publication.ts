@@ -2,9 +2,10 @@ import { Artist } from './artist';
 export interface Publication {
 
       id:number
-      publicationName:string;
-      publicationDescription:string;
-      likes:number;
-      date:Date;
+      description:string;
+      image:boolean
+      
+      registerdate:Date;
       artist:Artist
+      artistid:number
 }

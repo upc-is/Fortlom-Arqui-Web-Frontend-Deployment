@@ -164,17 +164,7 @@ addcomment(userid:number,forumid:number){
 
 
 
-updatecomment() {
-  this.service.update(this.commentdata.id, this.commentdata).subscribe((response: any) => {
-    this.dataSource.data = this.dataSource.data.map((o: Forumcomment) => {
-      if (o.id === response.id) {
-        o = response;
-      }
-      return o;
-    });
-    this.cancelEdit();
-  });
-}
+
 
 
 getfechacomment(fecha:Date){
@@ -201,30 +191,7 @@ getUserId(id :number){
 
 
 
-onSubmit(){
-this.myDate=new Date();
-this.latest_date =this.datePipe.transform(this.myDate, 'yyyy-MM-dd')!;
-//this.commentdata.registerdate=this.myDate
-  if (this.commentdataForm.form.valid) {
-    console.log(this.commentdata );
-    if (this.isEditMode) {
-      console.log("se actualiza")
-      this.updatecomment();
-    } else {
-      this.userid=1
-      this.addcomment(this.userid,this.forumid);
-    }
-    }
-    else{
-      console.log('Invalid data');
-    }
 
-
-
-
-
-
-}
 
 openDialog(id:number){
     console.log(id);

@@ -9,7 +9,7 @@ import { Fanatic } from 'src/app/models/fanatic';
 })
 export class FanaticService {
 
-  basePath = environment.productoURL+'/fanatics';
+  basePath = 'http://localhost:8081/api/v1/userservice/fanatics';
   
   
   httpOptions = {
@@ -48,8 +48,14 @@ export class FanaticService {
         retry(2),
         catchError(this.handleError));
   }
-  getByname(id: string): Observable<Fanatic> {
-    return this.http.get<Fanatic>(`${this.basePath}/name/${id}`, this.httpOptions)
+  getUserByfanaticname(fanaticname: string): Observable<Fanatic> {
+    return this.http.get<Fanatic>(`${this.basePath}/username/${fanaticname}`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
+  getUserByartistnameandlastname(fanaticname: string,fanaticlastname:string): Observable<Fanatic> {
+    return this.http.get<Fanatic>(`${this.basePath}/name/${fanaticname}/lastname/${fanaticlastname}`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));

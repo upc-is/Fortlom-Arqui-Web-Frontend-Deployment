@@ -23,13 +23,13 @@ import { SendEmailComponent } from './pages/ForgotPassword/send-email/send-email
 
 const routes: Routes = [
 
-  {path:'HomeArtist/:id',component:HomeArtistComponent,canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist'] } },
-  {path:'HomeArtist/:id/ArtistForum',component:ArtistForumsComponent,canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist'] }},
-  {path:'HomeArtist/:id/ArtistForum/CreateForum',component:FanaticForumCreateComponent,canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist'] }},
-  {path:'HomeArtist/:id/ArtistForum/ForumPage/:forumid',component:ForumPageComponent,canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist'] }},
-  {path:'HomeArtist/:id/Event',component:ArtistEventComponent,canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist'] }},
-  {path: 'HomeArtist/:id/posts',component:PostPageComponent,canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist'] }},
-  {path: 'HomeArtist/:id/ConfigureArtist',component:ConfigurationArtistComponent,canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist'] }},
+  {path:'HomeArtist/:id',component:HomeArtistComponent,canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist','Role_Upgrade_Artist'] } },
+  {path:'HomeArtist/:id/ArtistForum',component:ArtistForumsComponent,canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist','Role_Upgrade_Artist'] }},
+  {path:'HomeArtist/:id/ArtistForum/CreateForum',component:FanaticForumCreateComponent,canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist','Role_Upgrade_Artist'] }},
+  {path:'HomeArtist/:id/ArtistForum/ForumPage/:forumid',component:ForumPageComponent,canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist','Role_Upgrade_Artist'] }},
+  {path:'HomeArtist/:id/Event',component:ArtistEventComponent,canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist','Role_Upgrade_Artist'] }},
+  {path: 'HomeArtist/:id/posts',component:PostPageComponent,canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist','Role_Upgrade_Artist'] }},
+  {path: 'HomeArtist/:id/ConfigureArtist',component:ConfigurationArtistComponent,canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist','Role_Upgrade_Artist'] }},
 
 
   {path:'HomeFanatic/:id',component:HomeFanaticComponent,canActivate: [FanaticGuard], data: { expectedRol: ['Role_Fanatic'] }},
@@ -42,14 +42,14 @@ const routes: Routes = [
   {path:'HomeFanatic/:id/ConfigureFanatic',component:ConfigurationFanaticComponent,canActivate: [FanaticGuard], data: { expectedRol: ['Role_Fanatic'] }},
 
 
-  {path:'',component:LoginComponent,canActivate: [LoginGuard], data: { expectedRol: ['Role_Artist','Role_Fanatic'] }},
-  {path:'login',component:LoginComponent,canActivate: [LoginGuard], data: { expectedRol: ['Role_Artist','Role_Fanatic'] }},
+  {path:'',component:LoginComponent,canActivate: [LoginGuard], data: { expectedRol: ['Role_Artist','Role_Fanatic','Role_Upgrade_Artist'] }},
+  {path:'login',component:LoginComponent,canActivate: [LoginGuard], data: { expectedRol: ['Role_Artist','Role_Fanatic','Role_Upgrade_Artist'] }},
 
 
-  {path:'registerartist',component:RegisterArtistComponent,canActivate: [LoginGuard], data: { expectedRol: ['Role_Artist','Role_Fanatic'] }},
+  {path:'registerartist',component:RegisterArtistComponent,canActivate: [LoginGuard], data: { expectedRol: ['Role_Artist','Role_Fanatic','Role_Upgrade_Artist'] }},
   {path:'registerfanatic',component:RegisterFanaticComponent},
-  { path: 'sendemail', component: SendEmailComponent, canActivate: [LoginGuard] , data: { expectedRol: ['Role_Artist','Role_Fanatic'] }},
-  { path: 'change-password/:tokenPassword', component: ChangePasswordComponent, canActivate: [LoginGuard], data: { expectedRol: ['Role_Artist','Role_Fanatic'] } },
+  { path: 'sendemail', component: SendEmailComponent, canActivate: [LoginGuard] , data: { expectedRol: ['Role_Artist','Role_Fanatic','Role_Upgrade_Artist'] }},
+  { path: 'change-password/:tokenPassword', component: ChangePasswordComponent, canActivate: [LoginGuard], data: { expectedRol: ['Role_Artist','Role_Fanatic','Role_Upgrade_Artist'] } },
 
 
 ];

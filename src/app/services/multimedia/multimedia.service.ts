@@ -9,8 +9,8 @@ import { Multimedia } from 'src/app/models/multimedia';
 })
 export class MultimediaService {
 
-  basePath = environment.productoURL+'/multimedias';
-  basePath2=environment.productoURL+'/publications'
+  basePath = 'http://localhost:8086/api/v1/multimediaservice';
+ 
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -33,31 +33,34 @@ export class MultimediaService {
   }
   
   // Create Multimedia
-  create(item: any,publicationId:number){
-     this.http.post(`${this.basePath2}/${publicationId}/multimedias`, item,  { observe: 'response' })
+  createimageforpublication(item: File,publicationId:number){
+    const formData = new FormData();
+    formData.append('multipartFile', item);
+    return this.http.post(`${this.basePath}/upload/publications/${publicationId}/images`, formData,  { observe: 'response' })
       .pipe(
         retry(2),
         catchError(this.handleError));
   }
+  createimageforuser(item: File,userId:number){
+    const formData = new FormData();
+    formData.append('multipartFile', item);
+    return this.http.post(`${this.basePath}/upload/users/${userId}/images`, formData,  { observe: 'response' })
+     .pipe(
+       retry(2),
+       catchError(this.handleError));
+ }
+ 
+  getImageByPublicationId(id:number){
   
-  // Get Multimedia by id
-  getById(id: any): Observable<Multimedia> {
-    return this.http.get<Multimedia>(`${this.basePath}/${id}`, this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError));
+    return this.http.get<Multimedia>(`${this.basePath}/publications/${id}/images`, this.httpOptions)
+    .pipe(
+      retry(2),
+      catchError(this.handleError));
+  
   }
+  getImageByUserId(id:number){
   
-  // Get All Multimedias
-  getAll(): Observable<Multimedia> {
-    return this.http.get<Multimedia>(this.basePath, this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError));
-  }
-  getallmultimediabypublication(id:number){
-  
-    return this.http.get<Multimedia>(`${this.basePath2}/${id}/multimedias`, this.httpOptions)
+    return this.http.get<Multimedia>(`${this.basePath}/users/${id}/images`, this.httpOptions)
     .pipe(
       retry(2),
       catchError(this.handleError));
@@ -73,7 +76,7 @@ export class MultimediaService {
   
   // Delete Multimedia
   delete(id: any) {
-    return this.http.delete(`${this.basePath}/${id}`, this.httpOptions)
+    return this.http.delete(`${this.basePath}/delete/${id}`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));

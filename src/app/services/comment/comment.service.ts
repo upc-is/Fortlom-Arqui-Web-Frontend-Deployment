@@ -17,9 +17,8 @@ import { Comment } from 'src/app/models/comment';
 })
 export class CommentService {
 
-  basePath =environment.productoURL+'/comments'
-  basePath2 =environment.productoURL+'/users'
-  basePath3 =environment.productoURL+'/publications'
+  basePath =  'http://localhost:8084/api/v1/answerservice'
+ 
 
 httpOptions = {
   headers: new HttpHeaders({
@@ -44,7 +43,7 @@ handleError(error: HttpErrorResponse) {
 
 // Create Comment
 create(item: any,userId:number,publicationId:number): Observable<Comment> {
-  return this.http.post<Comment>(`${this.basePath2}/${userId}/publications/${publicationId}/comments`, JSON.stringify(item), this.httpOptions)
+  return this.http.post<Comment>(`${this.basePath}/user/${userId}/publications/${publicationId}/publicationcomments`, JSON.stringify(item), this.httpOptions)
     .pipe(
       retry(2),
       catchError(this.handleError));
@@ -52,7 +51,7 @@ create(item: any,userId:number,publicationId:number): Observable<Comment> {
 
 // Get Comment by id
 getById(id: any): Observable<Comment> {
-  return this.http.get<Comment>(`${this.basePath}/${id}`, this.httpOptions)
+  return this.http.get<Comment>(`${this.basePath}/publicationcomments/${id}`, this.httpOptions)
     .pipe(
       retry(2),
       catchError(this.handleError));
@@ -60,22 +59,16 @@ getById(id: any): Observable<Comment> {
 
 // Get All Comments
 getAll(): Observable<Comment> {
-  return this.http.get<Comment>(this.basePath, this.httpOptions)
+  return this.http.get<Comment>(`${this.basePath}/publicationcomments`, this.httpOptions)
     .pipe(
       retry(2),
       catchError(this.handleError));
 }
 
-// Update Comment
-update(id: any, item: any): Observable<Comment> {
-  return this.http.put<Comment>(`${this.basePath}/${id}`, JSON.stringify(item), this.httpOptions)
-    .pipe(
-      retry(2),
-      catchError(this.handleError));
-}
+
 getallcommentsbypublication(id:number){
 
-  return this.http.get<Comment>(`${this.basePath3}/${id}/comments`, this.httpOptions)
+  return this.http.get<Comment>(`${this.basePath}/publications/${id}/publicationcomments`, this.httpOptions)
   .pipe(
     retry(2),
     catchError(this.handleError));
@@ -83,7 +76,7 @@ getallcommentsbypublication(id:number){
 }
 // Delete Comment
 delete(id: any) {
-  return this.http.delete(`${this.basePath}/${id}`, this.httpOptions)
+  return this.http.delete(`${this.basePath}/publicationcomments/${id}`, this.httpOptions)
     .pipe(
       retry(2),
       catchError(this.handleError));

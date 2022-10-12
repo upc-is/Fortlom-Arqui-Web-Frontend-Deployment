@@ -1,6 +1,6 @@
 export interface ForumRules{
 
-    conductrules:string
+    forumrules:string
 
 
 }

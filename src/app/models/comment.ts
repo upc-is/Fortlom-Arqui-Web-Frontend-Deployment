@@ -8,7 +8,7 @@ export interface Comment {
 
       registerdate:Date;
 
-      person:Person;
+      userAccount:Person;
 
       publication:Publication;
 }

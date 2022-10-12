@@ -22,7 +22,7 @@
 <mat-card-footer class="footer">
     <mat-card class="cardrules">
       <mat-card-title>Rules</mat-card-title>
-      <p>{{conductrules}}</p>
+      <p>{{forumrules}}</p>
     </mat-card>
 </mat-card-footer>
 </mat-card>
@@ -30,7 +30,7 @@
 <mat-card class="seconcard">
   <mat-card-title>Escriba nuevas Reglas</mat-card-title>
   <mat-form-field appearance="fill" class="area" [formGroup]="rules">
-   <textarea formControlName="setrules" matInput type="text" [(ngModel)]="ForumRules.conductrules" id="writeForumRules"></textarea>
+   <textarea formControlName="setrules" matInput type="text" [(ngModel)]="ForumRules.forumrules" id="writeForumRules"></textarea>
   </mat-form-field>
   <div class="button-row">
     <button mat-raised-button  color="primary" [disabled]="!rules.valid" (click)="createrules()" id="acceptcondcutrules"> <mat-icon>add</mat-icon>Aceptar</button>

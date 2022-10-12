@@ -1,3 +1,5 @@
+import { OpinionpublicationComponent } from './pages/Opinionpublication/Opinionpublication.component';
+import { OpinionComponent } from './pages/Opinion/Opinion.component';
 import { ChangePasswordComponent } from './pages/ForgotPassword/change-password/change-password.component';
 import { ConfigurationArtistComponent } from './pages/configuration/configuration-artist/configuration-artist.component';
 import { ArtistEventComponent } from './pages/Artists/ArtistEvent/ArtistEvent.component';
@@ -72,7 +74,9 @@ import { DialogreportcommentComponent } from './pages/Fanatic/Fanatic-Forumcomme
     ChangePasswordComponent,
     DialogOverviewReportDialog,
     DialogreportforumComponent,
-    DialogreportcommentComponent
+    DialogreportcommentComponent,
+    OpinionComponent,
+    OpinionpublicationComponent
   ],
   imports: [
     BrowserModule,

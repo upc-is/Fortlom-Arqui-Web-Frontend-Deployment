@@ -58,6 +58,7 @@ export class TokenService {
 
   public isartist(): boolean {
     if (!this.isLogged()) {
+      console.log("ee")
       return false;
     }
     const token = this.getToken()!;
@@ -65,12 +66,29 @@ export class TokenService {
     const payloadDecoded = atob(payload);
     const values = JSON.parse(payloadDecoded);
     const roles = values.roles;
+  
     if (roles.indexOf('Role_Artist') < 0) {
       return false;
     }
     return true;
   }
 
+  public isartistupdagre(): boolean {
+    if (!this.isLogged()) {
+      console.log("ee")
+      return false;
+    }
+    const token = this.getToken()!;
+    const payload = token.split('.')[1];
+    const payloadDecoded = atob(payload);
+    const values = JSON.parse(payloadDecoded);
+    const roles = values.roles;
+    console.log(roles)
+    if (roles.indexOf('Role_Upgrade_Artist') < 0) {
+      return false;
+    }
+    return true;
+  }
 
   public logOut(): void {
     window.localStorage.clear();

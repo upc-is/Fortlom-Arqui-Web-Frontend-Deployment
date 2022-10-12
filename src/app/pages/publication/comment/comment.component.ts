@@ -27,8 +27,9 @@ text!:string
   }
 
   ngOnInit(): void { //changed all inside this
-this.realname=this.customText.person.realname
-    this.lastname=this.customText.person.lastname
+    console.log(this.customText)
+    this.realname=this.customText.userAccount.realname
+    this.lastname=this.customText.userAccount.lastname
     this.text=this.customText.commentdescription 
 
     

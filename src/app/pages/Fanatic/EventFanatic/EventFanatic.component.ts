@@ -102,9 +102,9 @@ export class EventFanaticComponent implements OnInit {
       this.dataSource.paginator=this.paginator;
       this.eventdata = response
 
-      var presentlikes = this.eventdata.eventlikes;
-      var finalLikes = presentlikes + 1;
-      this.eventdata.eventlikes = finalLikes
+      //var presentlikes = this.eventdata.eventlikes;
+      //var finalLikes = presentlikes + 1;
+      //this.eventdata.eventlikes = finalLikes
 
       this.eventService.update(this.eventdata.id, this.eventdata).subscribe((response: any) => {
         this.arrayevents = this.arrayevents.map((o: Event) => {
@@ -139,9 +139,9 @@ export class EventFanaticComponent implements OnInit {
       this.dataSource.paginator=this.paginator;
       this.eventdata = response
 
-      var presentlikes = this.eventdata.eventlikes;
-      var finalLikes = presentlikes - 1;
-      this.eventdata.eventlikes = finalLikes
+      //var presentlikes = this.eventdata.eventlikes;
+      //var finalLikes = presentlikes - 1;
+      //this.eventdata.eventlikes = finalLikes
 
       this.eventService.update(this.eventdata.id, this.eventdata).subscribe((response: any) => {
         this.arrayevents = this.arrayevents.map((o: Event) => {

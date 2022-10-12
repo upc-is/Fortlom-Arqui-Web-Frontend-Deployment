@@ -1,10 +1,11 @@
 import { Artist } from './artist';
 export interface Event {
       id:number
-      eventname:string
-      eventeescription:string
-      eventlikes:number
+      name:string
+      description:string
       registerdate:Date
       ticketLink:string
       artist:Artist
+
+      likes:number;
 }

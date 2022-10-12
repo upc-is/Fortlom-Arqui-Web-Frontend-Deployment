@@ -36,7 +36,7 @@
 
 
       <div *ngFor="let element of arrayimage">
-       <img [src]=element alt="Image from post" class="limited-size">
+        <img style="height: 200px; width: 100%; display: block;" src="{{element.imagenUrl}}" alt="Card image">
 
 
       <!-- Debería ir un for cuando se tengan multiples multimedias -->
@@ -45,8 +45,7 @@
   </mat-card-content> <!-- Cambiar Shiba Inu por el post real -->
 
   <mat-card-actions align="end">
-    <button mat-button color="primary" (click)="likePost()" id="like">Like ({{fullPost.likes}})</button>
-    <button mat-button color="primary" (click)="dislikePost()" id="dislike">disLike</button>
+    <app-Opinionpublication [content]="fullPost" [user]="idop"></app-Opinionpublication>
     <button mat-button (click)="getComments()" id="seecomments">See</button>
 
     <button mat-button (click)="openDialog()" id="buttonFlagPost">

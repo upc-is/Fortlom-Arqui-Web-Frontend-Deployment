@@ -13,9 +13,8 @@ export class EventService {
 
 
 
-basePath = environment.productoURL+'/event';
-BasePath=  environment.productoURL+'/events';
-basepathcreate=environment.productoURL+'/artist';
+basePath = 'http://localhost:8082/api/v1/contentservice';
+
 httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -40,7 +39,7 @@ handleError(error: HttpErrorResponse) {
 
 // Create Event
 create(artistid:number,item: any): Observable<Event> {
-  return this.http.post<Event>(`${this.basepathcreate}/${artistid}/events`, JSON.stringify(item), this.httpOptions)
+  return this.http.post<Event>(`${this.basePath}/artist/${artistid}/events`, JSON.stringify(item), this.httpOptions)
     .pipe(
       retry(2),
       catchError(this.handleError));
@@ -48,7 +47,7 @@ create(artistid:number,item: any): Observable<Event> {
 
 // Get Event by id
 getById(id: any): Observable<Event> {
-  return this.http.get<Event>(`${this.basePath}/${id}`, this.httpOptions)
+  return this.http.get<Event>(`${this.basePath}/event/${id}`, this.httpOptions)
     .pipe(
       retry(2),
       catchError(this.handleError));
@@ -56,12 +55,18 @@ getById(id: any): Observable<Event> {
 
 // Get All Events
 getAll(): Observable<Event> {
-  return this.http.get<Event>(this.BasePath, this.httpOptions)
+  return this.http.get<Event>(`${this.basePath}/events`, this.httpOptions)
     .pipe(
       retry(2),
       catchError(this.handleError));
 }
+getAllEventsByArtistId(artistId:number): Observable<Event>{
+  return this.http.get<Event>(`${this.basePath}/artist/${artistId}/events`, this.httpOptions)
+  .pipe(
+    retry(2),
+    catchError(this.handleError));
 
+}
 // Update Event
 update(id: any, item: any): Observable<Event> {
   return this.http.put<Event>(`${this.basePath}/${id}`, JSON.stringify(item), this.httpOptions)
@@ -69,10 +74,17 @@ update(id: any, item: any): Observable<Event> {
       retry(2),
       catchError(this.handleError));
 }
+updateEventreleaseddate(eventId:number,releasedate:string): Observable<Event>{
+  return this.http.put<Event>(`${this.basePath}/eventupdatereleseadedate/${eventId}/releasedate/${releasedate}`, this.httpOptions)
+  .pipe(
+    retry(2),
+    catchError(this.handleError));
 
+
+}
 // Delete Event
 delete(id: any) {
-  return this.http.delete(`${this.basePath}/${id}`, this.httpOptions)
+  return this.http.delete(`${this.basePath}/event/${id}`, this.httpOptions)
     .pipe(
       retry(2),
       catchError(this.handleError));

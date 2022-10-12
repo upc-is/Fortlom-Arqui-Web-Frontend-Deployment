@@ -4,8 +4,10 @@ export interface Multimedia {
 
 
       id:number;
-      content:any;
-      publication:Publication
+      imagenUrl:string;
+      imagenId:string
+      userid:number
+      publication:number
 
 
 

@@ -32,7 +32,7 @@
       placeholder="Ex. https://content.ext"
       type="text"
     >
-    <input type="file" (change)="onFileChanged($event)" id="setimage">
+    <input type="file" (change)="onFileChanged($event)"  accept="image/png, image/jpeg, image/gif" id="setimage" #imagenInputFile>
 
     <mat-card-actions align="end">
       <button mat-button color="primary" (click)="multimediaDialog = false" id="buttonClose">Close</button>

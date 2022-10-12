@@ -22,13 +22,13 @@
       <form #EventForm='ngForm'>
         <mat-form-field>
           <input matInput placeholder="EventName" name="EventName" required
-          [(ngModel)]="eventdata.eventname" id="seteventname">
+          [(ngModel)]="eventdata.name" id="seteventname">
             <mat-error>Es requerido</mat-error>
         </mat-form-field>
         <mat-divider></mat-divider>
         <mat-form-field>
           <input matInput placeholder="EventDescription" name="EventDescription" required
-            [(ngModel)]="eventdata.eventeescription" id="seteventdescription">
+            [(ngModel)]="eventdata.description" id="seteventdescription">
             <mat-error>Es requerido</mat-error>
         </mat-form-field>
         <mat-divider></mat-divider>
@@ -106,27 +106,13 @@
 
           </mat-card-header>
           <mat-card-content>
-            <mat-card-title><h1>{{arr.eventname}}</h1></mat-card-title>
-            <p>{{arr.eventeescription}}</p>
+            <mat-card-title><h1>{{arr.name}}</h1></mat-card-title>
+            <p>{{arr.description}}</p>
           </mat-card-content>
           <mat-card-actions>
             <table>
               <tr>
-                <td>
-                <div class = "buttonspacer">
-                <button mat-button (click) = "Increasinglikes(arr.id)"><mat-icon aria-label="Example thumb_up icon">
-                    thumb_up
-                </mat-icon></button>
-                <button mat-button (click) = "decreaselikes(arr.id)"><mat-icon aria-label="Example thumb_up icon">
-                  thumb_down
-              </mat-icon></button>
-                </div>
-                </td>
-                <td>
-                  <div class = "minipadding"></div>
-                  <p>{{arr.eventlikes}}</p>
-
-                </td>
+                <app-Opinion [content]="arr" [user]="idevent"></app-Opinion>
                 <td>
                   <p>{{getfechacomment(arr.registerdate)}}</p>
                 </td>

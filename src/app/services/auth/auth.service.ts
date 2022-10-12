@@ -10,12 +10,15 @@ import { NewFanatic } from 'src/app/models/NewFanatic';
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class AuthService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
     })
   }
+  basePath = 'http://localhost:8081/auth';
   constructor(private http:HttpClient) { }
   handleError(error: HttpErrorResponse) {
   if (error.error instanceof ErrorEvent) {
@@ -33,7 +36,7 @@ export class AuthService {
 
   LogUser(item: LoginUser): Observable<JwtDTO>{
 
-    return this.http.post<any>(`${environment.authURL}/login`, item, this.httpOptions)
+    return this.http.post<any>(`${this.basePath}/login`, item, this.httpOptions)
     .pipe(
       retry(2),
       catchError(this.handleError));
@@ -42,12 +45,12 @@ export class AuthService {
   }
   RegisterArtist(item:NewArtist): Observable<any>{
 
-     return this.http.post<any>(`${environment.authURL}/artist`, item, this.httpOptions)
+     return this.http.post<any>(`${this.basePath}/artist`, item, this.httpOptions)
 
   }
   RegisterFanatic(item:NewFanatic): Observable<any>{
 
-    return this.http.post<any>(`${environment.authURL}/fanatic`, item, this.httpOptions)
+    return this.http.post<any>(`${this.basePath}/fanatic`, item, this.httpOptions)
 
  }
 

@@ -17,7 +17,12 @@ export class ArtistGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const expectedRol = route.data.expectedRol;
-    this.realRol = this.tokenService.isartist() ? 'Role_Artist' : 'Role_Fanatic';
+    if(this.tokenService.isfanatic()){
+      this.realRol='Role_Fanatic'
+    }else{
+      this.realRol = this.tokenService.isartist() ? 'Role_Artist' : 'Role_Upgrade_Artist';
+      console.log(this.realRol)
+    }
     if (!this.tokenService.isLogged() || expectedRol.indexOf(this.realRol) < 0) {
       this.router.navigate(['/']);
       return false;
