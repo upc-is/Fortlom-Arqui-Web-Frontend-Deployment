@@ -1,3 +1,4 @@
+import { FollowsComponent } from './pages/Fanatic/follows/follows.component';
 import { OpinionpublicationComponent } from './pages/Opinionpublication/Opinionpublication.component';
 import { OpinionComponent } from './pages/Opinion/Opinion.component';
 import { ChangePasswordComponent } from './pages/ForgotPassword/change-password/change-password.component';
@@ -40,6 +41,7 @@ import { SendEmailComponent } from './pages/ForgotPassword/send-email/send-email
 import { DialogOverviewReportDialog } from './pages/publication/post/dialogreport/dialogreport.component';
 import { DialogreportforumComponent } from './pages/ForumPage/dialogreportforum/dialogreportforum.component';
 import { DialogreportcommentComponent } from './pages/Fanatic/Fanatic-Forumcomment/dialogreportcomment/dialogreportcomment.component';
+import { ImageforlistComponent } from './pages/Fanatic/imageforlist/imageforlist.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,9 @@ import { DialogreportcommentComponent } from './pages/Fanatic/Fanatic-Forumcomme
     DialogreportforumComponent,
     DialogreportcommentComponent,
     OpinionComponent,
-    OpinionpublicationComponent
+    OpinionpublicationComponent,
+    FollowsComponent,
+    ImageforlistComponent
   ],
   imports: [
     BrowserModule,

@@ -11,8 +11,8 @@ import { Follow } from 'src/app/models/follow';
 export class FollowService {
 
 
-  basePath = environment.productoURL+'/follows';
-  basePatn2=environment.productoURL+'/fanatics';
+  basePath =  'http://localhost:8085/api/v1/supportservice';
+  
   
   httpOptions = {
     headers: new HttpHeaders({
@@ -36,8 +36,8 @@ export class FollowService {
   }
   
   // Create Follow
-  create(fanaticid:number,artistid:number,item: any): Observable<Follow> {
-    return this.http.post<Follow>(`${this.basePatn2}/${fanaticid}/artists/${artistid}/follows`, this.httpOptions)
+  create(fanaticid:number,artistid:number,boolfollow:boolean): Observable<Follow> {
+    return this.http.post<Follow>(`${this.basePath}/artists/${artistid}/fanatics/${fanaticid}/boolfollow/${boolfollow}/follows`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
@@ -45,23 +45,46 @@ export class FollowService {
   
   // Get Follow by id
   getById(id: any): Observable<Follow> {
-    return this.http.get<Follow>(`${this.basePath}/${id}`, this.httpOptions)
+    return this.http.get<Follow>(`${this.basePath}/follows/${id}`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
   }
-  
+  getByartistsId(id: any): Observable<Follow> {
+    return this.http.get<Follow>(`${this.basePath}/artists/${id}/follows`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
+  existsByfanaticacheckd(artistsid: number,agree:boolean): Observable<Follow> {
+    return this.http.get<Follow>(`${this.basePath}/check/${artistsid}/${agree}`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
+  existsByfanaticartistsId(artistsid: number,fanatic:number): Observable<Follow> {
+    return this.http.get<Follow>(`${this.basePath}/check/${artistsid}/fanatics/${fanatic}`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
+  getByfanaticartistsId(artistsid: number,boolagree:boolean): Observable<Follow> {
+    return this.http.get<Follow>(`${this.basePath}/artists/${artistsid}/agreess/${boolagree}/opinions`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
   // Get All Follows
   getAll(): Observable<Follow> {
-    return this.http.get<Follow>(this.basePath, this.httpOptions)
+    return this.http.get<Follow>(`${this.basePath}/follows`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
   }
   
   // Update Follow
-  update(id: any, item: any): Observable<Follow> {
-    return this.http.put<Follow>(`${this.basePath}/${id}`, JSON.stringify(item), this.httpOptions)
+  update(followid: number,boolfollow:boolean ): Observable<Follow> {
+    return this.http.put<Follow>(`${this.basePath}/update/${followid}/follow/${boolfollow}`,  this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
@@ -69,7 +92,7 @@ export class FollowService {
   
   // Delete Follow
   delete(id: any) {
-    return this.http.delete(`${this.basePath}/${id}`, this.httpOptions)
+    return this.http.delete(`${this.basePath}/follows/${id}`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));

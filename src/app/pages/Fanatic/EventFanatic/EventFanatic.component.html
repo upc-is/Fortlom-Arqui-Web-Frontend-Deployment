@@ -46,16 +46,10 @@
         <mat-card-actions>
           <table>
             <tr>
-              <td>
-              <div class = "buttonspacer">
-              <button mat-button (click) = "Increasinglikes(arr.id)" id="thumbupevent"><mat-icon aria-label="Example thumb_up icon">
-                  thumb_up
-              </mat-icon></button>
-              <button mat-button (click) = "decreaselikes(arr.id)" id="thumbdownevent"><mat-icon aria-label="Example thumb_up icon">
-                thumb_down
-            </mat-icon></button>
-              </div>
-              </td>
+           
+
+
+              <app-Opinion [content]="arr" [user]="idevent"></app-Opinion>
               <td>
                 <div class = "minipadding"></div>
                 <p>{{arr.eventlikes}}</p>

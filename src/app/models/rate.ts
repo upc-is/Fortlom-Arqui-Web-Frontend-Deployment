@@ -4,7 +4,7 @@ export interface Rate {
 
 
       id:number;
-      rates:number;
+      review:number;
       artist:Artist;
       fanatic:Fanatic;
 

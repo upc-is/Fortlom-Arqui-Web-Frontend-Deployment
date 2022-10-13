@@ -1,13 +1,15 @@
+import { ActivatedRoute } from '@angular/router';
 import { ArtistService } from './../../../services/artist/artist.service';
 import { Component, OnInit, ViewChild  } from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {NgForm} from "@angular/forms";
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+
 import { Person } from 'src/app/models/Person';
 import { EventService } from 'src/app/services/event/event.service';
 import { Event } from 'src/app/models/event';
+import { AnswerService } from 'src/app/services/answer/answer.service';
 
 @Component({
   selector: 'app-EventFanatic',
@@ -38,7 +40,7 @@ export class EventFanaticComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true})
   paginator!: MatPaginator;
 
-  constructor(private eventService: EventService,private ArtistService:ArtistService,private dialog:MatDialog) {
+  constructor(private eventService: EventService,private ArtistService:ArtistService,private dialog:MatDialog,private AnswerService:AnswerService,private route:ActivatedRoute) {
     this.eventdata = {} as Event;
     this.userdata = {} as Person;
     this.dataSource = new MatTableDataSource<any>();
@@ -48,6 +50,9 @@ export class EventFanaticComponent implements OnInit {
 
   ngOnInit():void {
     this.dataSource.paginator = this.paginator;
+    let pod=parseInt(this.route.snapshot.paramMap.get('id')!);
+    let id = pod;
+    this.idevent=id;
     this.getAllEvents();
     this.getListArtist();
   }
@@ -95,29 +100,64 @@ export class EventFanaticComponent implements OnInit {
       console.log(this.listusers)
     });
   }
+  getlikes(id:number){
+    this.AnswerService.getAllOpinionsByagreeandContentId(id,true).subscribe((response: any)=>{
+         console.log(response.content.length)
+          return response.content.length
+    })
+ }
+  
+ Increasinglikes(id:number){
+  this.eventService.getById(id).subscribe((response: any) => {
+    this.dataSource.data = response;
+    this.dataSource.paginator=this.paginator;
+    this.eventdata = response
 
-  Increasinglikes(id:number){
-    this.eventService.getById(id).subscribe((response: any) => {
-      this.dataSource.data = response;
-      this.dataSource.paginator=this.paginator;
-      this.eventdata = response
+    //var presentlikes = this.eventdata.eventlikes;
+    //var finalLikes = presentlikes + 1;
+    //this.eventdata.eventlikes = finalLikes
 
-      //var presentlikes = this.eventdata.eventlikes;
-      //var finalLikes = presentlikes + 1;
-      //this.eventdata.eventlikes = finalLikes
-
-      this.eventService.update(this.eventdata.id, this.eventdata).subscribe((response: any) => {
-        this.arrayevents = this.arrayevents.map((o: Event) => {
-          if (o.id === response.id) {
-            o = response;
-          }
-          return o;
-        });
+    this.eventService.update(this.eventdata.id, this.eventdata).subscribe((response: any) => {
+      this.arrayevents = this.arrayevents.map((o: Event) => {
+        if (o.id === response.id) {
+          o = response;
+        }
+        return o;
       });
-
     });
 
-  }
+  });
+
+}
+decreaselikes(id:number){
+  this.eventService.getById(id).subscribe((response: any) => {
+    this.dataSource.data = response;
+    this.dataSource.paginator=this.paginator;
+    this.eventdata = response
+
+    //var presentlikes = this.eventdata.eventlikes;
+    //var finalLikes = presentlikes - 1;
+    //this.eventdata.eventlikes = finalLikes
+
+    this.eventService.update(this.eventdata.id, this.eventdata).subscribe((response: any) => {
+      this.arrayevents = this.arrayevents.map((o: Event) => {
+        if (o.id === response.id) {
+          o = response;
+        }
+        return o;
+      });
+    });
+
+  });
+
+}
+
+
+
+
+
+
+
 
   ShowEventsArtist(){
     this.showeventartist = true;
@@ -133,29 +173,7 @@ export class EventFanaticComponent implements OnInit {
   }
 
 
-  decreaselikes(id:number){
-    this.eventService.getById(id).subscribe((response: any) => {
-      this.dataSource.data = response;
-      this.dataSource.paginator=this.paginator;
-      this.eventdata = response
-
-      //var presentlikes = this.eventdata.eventlikes;
-      //var finalLikes = presentlikes - 1;
-      //this.eventdata.eventlikes = finalLikes
-
-      this.eventService.update(this.eventdata.id, this.eventdata).subscribe((response: any) => {
-        this.arrayevents = this.arrayevents.map((o: Event) => {
-          if (o.id === response.id) {
-            o = response;
-          }
-          return o;
-        });
-      });
-
-    });
-
-  }
-
+  
 
   checkislickisinevent(link:string){
 

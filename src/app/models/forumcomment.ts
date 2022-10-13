@@ -9,7 +9,7 @@ export interface Forumcomment {
 
      registerdate:Date;
 
-     person:Person;
+     userAccount:Person;
 
       forum:Forum;
 

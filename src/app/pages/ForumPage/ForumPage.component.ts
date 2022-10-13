@@ -139,8 +139,8 @@ export class ForumPageComponent implements OnInit {
 
   flagPost(id:number,descriptiondialog:string) {
     console.log(descriptiondialog)
-    this.report.reportDescription=descriptiondialog
-    this.reportService.create(this.report,+this.route.snapshot.params['id'],id)
+    this.report.description=descriptiondialog
+    this.reportService.createforforum(this.report,+this.route.snapshot.params['id'],id,this.idforum)
       .subscribe((response: any) => {
         alert("reporte enviado")
         console.log(response);
@@ -152,7 +152,7 @@ export class ForumPageComponent implements OnInit {
     console.log(this.ForumRules)
     this.service.update(this.idforum,this.ForumRules)
     .subscribe((response:any)=>{
-
+             this.forumrules=response.forumrules;
 
     })
 
@@ -191,7 +191,7 @@ crearcomentariodeforo(){
   this.date=new Date();
 //this.Forumcomment.user=this.idactualuser
 let latest_date =this.datepipe.transform(this.date, 'yyyy-MM-dd')!;
-//this.Forumcomment.registerdate=this.date
+this.Forumcomment.registerdate=this.date
 //this.Forumcomment.forum=this.idforum
 console.log(this.Forumcomment)
 console.log(this.idactualuser,this.idforum)

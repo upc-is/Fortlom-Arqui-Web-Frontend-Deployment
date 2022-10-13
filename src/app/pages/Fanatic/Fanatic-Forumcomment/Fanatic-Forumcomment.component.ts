@@ -193,8 +193,8 @@ getUserId(id :number){
 
 
 
-openDialog(id:number){
-    console.log(id);
+openDialog(id:number,commentid:number){
+  
     const dialogRef = this.dialog.open(DialogreportcommentComponent, {
       width: '500px',
       data: {reportdescriptiondialog: this.reportdescriptiondialog},
@@ -205,15 +205,16 @@ openDialog(id:number){
       this.reportdescriptiondialog = result;
       console.log(this.reportdescriptiondialog);
       if(this.reportdescriptiondialog != null){
-        this.flagPost(id,this.reportdescriptiondialog);
+        this.flagPost(id,this.reportdescriptiondialog,commentid);
       }
     });
 }
 
-flagPost(id:number,descriptiondialog:string) {
+flagPost(id:number,descriptiondialog:string,commentid:number) {
   console.log(descriptiondialog);
-  this.report.reportDescription=descriptiondialog
-  this.reportService.create(this.report,+this.route.snapshot.params['id'],id)
+  this.report.description=descriptiondialog
+  console.log(this.report)
+  this.reportService.createforcomment(this.report,+this.route.snapshot.params['id'],id,commentid)
     .subscribe((response: any) => {
       alert("reporte enviado")
       console.log(response);

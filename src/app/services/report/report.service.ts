@@ -9,8 +9,8 @@ import { Report } from 'src/app/models/report';
 })
 export class ReportService {
 
-  basePath = environment.productoURL+'/reports';
-basePath2= environment.productoURL+'/usersmains'
+  basePath = 'http://localhost:8087/api/v1/reportservice';
+
   
   httpOptions = {
     headers: new HttpHeaders({
@@ -34,9 +34,23 @@ basePath2= environment.productoURL+'/usersmains'
   }
   
   // Create Report
-  create(item: any,UserMainId:number,UserReportedId:number): Observable<Report> {
+  createforcomment(item: any,UserMainId:number,UserReportedId:number,commentid:number): Observable<Report> {
 
-    return this.http.post<Report>(`${this.basePath2}/${UserMainId}/usersreports/${UserReportedId}/reports`, JSON.stringify(item), this.httpOptions)
+    return this.http.post<Report>(`${this.basePath}/usersmains/${UserMainId}/usersreports/${UserReportedId}/comments/${commentid}/complaints`, JSON.stringify(item), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
+  createforforum(item: any,UserMainId:number,UserReportedId:number,forumid:number): Observable<Report> {
+
+    return this.http.post<Report>(`${this.basePath}/usersmains/${UserMainId}/usersreports/${UserReportedId}/forums/${forumid}/complaints`, JSON.stringify(item), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
+  createforpublications(item: any,UserMainId:number,UserReportedId:number,publishedId:number): Observable<Report> {
+
+    return this.http.post<Report>(`${this.basePath}/usersmains/${UserMainId}/usersreports/${UserReportedId}/publications/${publishedId}/complaints`, JSON.stringify(item), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
@@ -44,31 +58,54 @@ basePath2= environment.productoURL+'/usersmains'
   
   // Get Report by id
   getById(id: any): Observable<Report> {
-    return this.http.get<Report>(`${this.basePath2}/${id}`, this.httpOptions)
+    return this.http.get<Report>(`${this.basePath}/complaints/${id}`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
   }
-  
+  getBycommentid(id: any,): Observable<Report> {
+    return this.http.get<Report>(`${this.basePath}/comments/${id}/complaints`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
+  getByforumid(id: any,): Observable<Report> {
+    return this.http.get<Report>(`${this.basePath}/forums/${id}/complaints`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
+  getBypublicationsid(id: any,): Observable<Report> {
+    return this.http.get<Report>(`${this.basePath}/publications/${id}/complaints`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
+  getByusersmainsid(id: any,): Observable<Report> {
+    return this.http.get<Report>(`${this.basePath}/usersmains/${id}/complaints`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
+  getByuserreportedsid(id: any,): Observable<Report> {
+    return this.http.get<Report>(`${this.basePath}/usersreports/${id}/complaints`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
   // Get All Reports
   getAll(): Observable<Report> {
-    return this.http.get<Report>(this.basePath2, this.httpOptions)
+    return this.http.get<Report>(`${this.basePath}/complaints`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
   }
   
-  // Update Report
-  update(id: any, item: any): Observable<Report> {
-    return this.http.put<Report>(`${this.basePath2}/${id}`, JSON.stringify(item), this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError));
-  }
+  
   
   // Delete Report
   delete(id: any) {
-    return this.http.delete(`${this.basePath2}/${id}`, this.httpOptions)
+    return this.http.delete(`${this.basePath}/complaints/${id}`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));

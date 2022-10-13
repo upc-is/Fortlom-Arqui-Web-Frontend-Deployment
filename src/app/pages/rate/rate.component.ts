@@ -23,7 +23,8 @@ export class RateComponent implements OnInit {
     let pad=parseInt(this.route.snapshot.paramMap.get('id')!);
     let id2= pad;
     this.idactualuser=id2;
-    console.log(this.idactualuser)
+   
+   
   }
   formatLabel(value: number) {
     if (value >= 1000) {
@@ -34,18 +35,39 @@ export class RateComponent implements OnInit {
   }
   new_rate( aId: number){
     console.log('rate:' + aId)
-    this.rate.rates=aId;
+    this.rate.review=aId;
     this.NewRate();
 
 
   }
   NewRate(){
 
-    this.rateservice.create(this.idactualuser,this.idcomment,this.rate).subscribe((response: any) => {
+   
+    this.rateservice.existbyartistoidandfanaticid(this.idcomment,this.idactualuser).subscribe((response:any)=>{
+         console.log("entro")
+      if(response==false){
+        this.rateservice.create(this.idcomment,this.idactualuser,this.rate).subscribe((response: any) => {
 
-      alert("Se ha calificado al artista")
+          alert("Se ha calificado al artista")
+    
+        });
+      }
+      else{
+             this.rateservice.getByartistIdandfanaticid(this.idcomment,this.idactualuser).subscribe((response:any)=>{
+                       console.log(response.content[0])
+                       console.log(this.rate.review)
+                       this.rateservice.update(response.content[0].id,this.rate).subscribe((response:any)=>{
+                             return(response)
 
-    });
+                       })
+             })
+      }
+
+    })
+
+
+
+   
 
 
   }

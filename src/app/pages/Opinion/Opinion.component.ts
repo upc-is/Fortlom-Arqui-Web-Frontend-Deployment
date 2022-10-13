@@ -23,6 +23,7 @@ export class OpinionComponent implements OnInit {
   ngOnInit() {
 
     console.log(this.content)
+    console.log(this.user)
     this.setlikes(this.content.id)
   }
   
@@ -30,9 +31,11 @@ export class OpinionComponent implements OnInit {
 
     this.AnswerService.exists(id,this.user).subscribe((response:any)=>{
       console.log(response)
+      console.log("entro")
       if(response==false){
         this.AnswerService.createOpinion(this.user,id).subscribe((response:any)=>{
-
+          console.log("existe")
+          this.setlikes(this.content.id)
         })
       }
       else{
@@ -56,7 +59,7 @@ export class OpinionComponent implements OnInit {
     this.AnswerService.exists(id,this.user).subscribe((response:any)=>{
       if(response==false){
         this.AnswerService.createOpinion(this.user,id).subscribe((response:any)=>{
-
+          this.setlikes(this.content.id)
         })
       }
       else{

@@ -8,7 +8,7 @@
         <td class = "withoutborder">
         <mat-card-header class = "centeravatar">
           <div mat-card-avatar class="example-header-image">
-            <img [src]="retrievedImage">
+            <img style="height: 200px; width: 100%; display: block;" [src]="retrievedImage" alt="Card image">
           </div>
          
         </mat-card-header>
@@ -31,7 +31,11 @@
               <button mat-raised-button class = "button">{{arr}}</button>
               <div class = "minipadding"></div>
             </div>
-            <button mat-raised-button class = "button" (click) = "AddGenders()" id="addgender">Add</button>
+            <button mat-raised-button class = "button" (click) = "AddTag()" id="addgender">Crear Tag</button>
+            <div *ngIf="setag">
+            <input type="text" placeholder="Cree Tag"[(ngModel)]="tag.name">
+            <button mat-raised-button class = "button" (click) = "AddGenders()" id="addgender">Confirmar</button>
+            </div>
             <div class = "minipadding"></div>
             <h2>Link with:</h2>
             <a href="{{facebooklink}}" id="facelink"><button mat-button><mat-icon>facebook</mat-icon></button></a>

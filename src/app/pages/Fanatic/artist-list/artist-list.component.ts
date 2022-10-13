@@ -1,3 +1,4 @@
+import { MultimediaService } from 'src/app/services/multimedia/multimedia.service';
 import { Component, OnInit } from '@angular/core';
 import { Artist } from 'src/app/models/artist';
 import { Rate } from 'src/app/models/rate';
@@ -19,7 +20,7 @@ export class ArtistListComponent implements OnInit {
   val!: number
   idnumber!:number
   value = 0;
-  constructor(private artistService: ArtistService, private rateService:RateService,private followService:FollowService,private fanaticservice:FanaticService,private route:ActivatedRoute) {
+  constructor(private artistService: ArtistService, private rateService:RateService,private followService:FollowService,private fanaticservice:FanaticService,private route:ActivatedRoute,private MultimediaService:MultimediaService) {
     this.rate={}as Rate;
    }
 
@@ -37,27 +38,13 @@ export class ArtistListComponent implements OnInit {
       console.log(this.artistList)
     });
   }
-
-  item!:Follow;
-  follow(artist: Artist) {
-    console.log('artist id to follow: ' + artist.id);
-    artist.artistfollowers++;
-    console.log(artist)
-    this.artistService.update(artist.id, artist).subscribe((response: any) => {
-      console.log(response);
-    
-      this.followService.create(this.idnumber,artist.id,this.item).subscribe((response: any)=>{
-
-      })
-      this.artistList = this.artistList.map((o: Artist) => {
-        if (o.id === response.id) {
-          o = response;
-        }
-        return o;
-      });
-
-    });
+  getimage(id:number){
+         this.MultimediaService.getImageByUserId(id).subscribe((response:any)=>{
+               return response.content[0].imagenUrl
+         })
   }
+  item!:Follow;
+  
   unfollow(artist: Artist) {
     console.log('artist id to follow: ' + artist.id);
     artist.artistfollowers--;
@@ -77,7 +64,7 @@ export class ArtistListComponent implements OnInit {
   }
   new_rate( aId: number){
     console.log('rate:' + aId)
-    this.rate.rates=aId;
+    this.rate.review=aId;
 
 
 

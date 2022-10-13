@@ -9,8 +9,8 @@ import { Person } from 'src/app/models/Person';
 })
 export class PersonService {
 
-  basePath = environment.productoURL+'/users';
-  basePath2 = 'http://localhost:3000/Usuario';
+  basePath = 'http://localhost:8081/api/v1/userservice/users';
+
   
   httpOptions = {
     headers: new HttpHeaders({

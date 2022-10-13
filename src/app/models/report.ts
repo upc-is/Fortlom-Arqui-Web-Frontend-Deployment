@@ -3,7 +3,7 @@ import { Person } from "./Person";
 export interface Report {
       id:number;
 
-      reportDescription:string
+      description:string
 
       userMain:Person;
 

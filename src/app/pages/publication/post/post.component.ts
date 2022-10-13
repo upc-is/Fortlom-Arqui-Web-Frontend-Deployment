@@ -152,8 +152,8 @@ descripcion!:string
       UserMain: +this.$route.snapshot.params['id'],
       PostReported: this.fullPost.id
     }
-    this.report.reportDescription= descriptiondialog
-    this.reportService.create(this.report,+this.$route.snapshot.params['id'],this.relatedUser.id)
+    this.report.description= descriptiondialog
+    this.reportService.createforpublications(this.report,+this.$route.snapshot.params['id'],this.relatedUser.id,this.fullPost.id)
       .subscribe((response: any) => {
         alert("reporte enviado")
         console.log(response);

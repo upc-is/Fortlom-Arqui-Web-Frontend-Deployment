@@ -9,8 +9,8 @@ import { Rate } from 'src/app/models/rate';
 })
 export class RateService {
 
-  basePath = environment.productoURL+'/rates';
-  basePatn2=environment.productoURL+'/fanatics';
+  basePath = 'http://localhost:8085/api/v1/supportservice';
+  
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -33,8 +33,8 @@ export class RateService {
   }
   
   // Create Rate
-  create(fanaticid:number,artistid:number,item: any): Observable<Rate> {
-    return this.http.post<Rate>(`${this.basePatn2}/${fanaticid}/artists/${artistid}/rates`, JSON.stringify(item), this.httpOptions)
+  create(artistid:number,fanaticid:number,item: any): Observable<Rate> {
+    return this.http.post<Rate>(`${this.basePath}/artists/${artistid}/fanatics/${fanaticid}/rates`, JSON.stringify(item), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
@@ -42,7 +42,31 @@ export class RateService {
   
   // Get Rate by id
   getById(id: any): Observable<Rate> {
-    return this.http.get<Rate>(`${this.basePath}/${id}`, this.httpOptions)
+    return this.http.get<Rate>(`${this.basePath}/rates/${id}`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
+  existbyartistoidandfanaticid(artistoid: number,fanaticid:number): Observable<Rate> {
+    return this.http.get<Rate>(`${this.basePath}/check/${artistoid}/${fanaticid}/rates`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
+  getByartistId(id: any): Observable<Rate> {
+    return this.http.get<Rate>(`${this.basePath}/artists/${id}/rates`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
+  getByartistIdandfanaticid(id: number,fanaticid:number): Observable<Rate> {
+    return this.http.get<Rate>(`${this.basePath}/artists/${id}/fanatics/${fanaticid}/rates`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
+  getByfanaticId(id: any): Observable<Rate> {
+    return this.http.get<Rate>(`${this.basePath}/fanatics/${id}/rates/`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
@@ -50,15 +74,16 @@ export class RateService {
   
   // Get All Rates
   getAll(): Observable<Rate> {
-    return this.http.get<Rate>(this.basePath, this.httpOptions)
+    return this.http.get<Rate>(`${this.basePath}/rates`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
   }
   
   // Update Rate
-  update(id: any, item: any): Observable<Rate> {
-    return this.http.put<Rate>(`${this.basePath}/${id}`, JSON.stringify(item), this.httpOptions)
+  update(rateId: number,review:Rate): Observable<Rate> {
+    console.log(review)
+    return this.http.put<Rate>(`${this.basePath}/update/${rateId}`, JSON.stringify(review), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));

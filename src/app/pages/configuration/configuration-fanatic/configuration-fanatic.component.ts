@@ -9,6 +9,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FanaticService } from 'src/app/services/fanatic/fanatic.service';
 import { PersonService } from 'src/app/services/person/person.service';
+import { MultimediaService } from 'src/app/services/multimedia/multimedia.service';
 @Component({
   selector: 'app-configuration-fanatic',
   templateUrl: './configuration-fanatic.component.html',
@@ -33,7 +34,7 @@ export class ConfigurationFanaticComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true})
   paginator!: MatPaginator;
 
-  constructor(private fanaticService: FanaticService,private userService: PersonService,private dialog:MatDialog,private route:ActivatedRoute,private httpClient:HttpClient) {
+  constructor(private fanaticService: FanaticService,private userService: PersonService,private dialog:MatDialog,private route:ActivatedRoute,private MultimediaService:MultimediaService) {
     this.fanaticdata = {} as Fanatic;
     this.userdata = {} as Person;
     this.dataSource = new MatTableDataSource<any>();
@@ -156,24 +157,36 @@ export class ConfigurationFanaticComponent implements OnInit {
 
 
 
-
+  imagenMin!: File;
   selectedFile!: File;
   public onFileChanged(event:any) {
-    //Select File
     this.selectedFile = event.target.files[0];
-    const uploadImageData = new FormData();
-      uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
-    console.log(this.selectedFile)
-    this.httpClient.put("http://localhost:8080/api/v1/users/"+this.userdata.id+"/updatephoto", uploadImageData, { observe: 'response' })
-    .subscribe((response) => {
-      if (response.status === 200) {
-        console.log('Image uploaded successfully');
-        this.getImage()
-      } else {
-         console.log('Image not uploaded successfully')
-      }
-    }
-    );
+    const fr = new FileReader();
+    fr.onload = (evento: any) => {
+      this.imagenMin = evento.target.result;
+    };
+    fr.readAsDataURL(this.selectedFile);
+    console.log("image")
+    this.MultimediaService.getImageByUserId(this.userdata.id).subscribe((response: any)=>{
+
+           if(response.content.length){
+                 console.log(response.content[0])
+                 this.MultimediaService.delete(response.content[0].id).subscribe((response: any)=>{
+                 
+                  this.MultimediaService.createimageforuser(this.selectedFile,this.userdata.id).subscribe((response: any)=>{
+                           console.log("actualizado")
+                           this.retrievedImage=response.imagenUrl
+                  })
+                })
+
+           }else{
+            console.log("sin imagen")
+            this.MultimediaService.createimageforuser(this.selectedFile,this.userdata.id).subscribe((response: any)=>{
+                    this.retrievedImage=response.imagenUrl
+            })
+           }
+
+    })
   
   
   
@@ -184,15 +197,11 @@ export class ConfigurationFanaticComponent implements OnInit {
     base64Data: any;
     retrieveResonse: any;
   getImage(){
-    console.log("fanatic")
-    console.log(this.fanaticdata)
-    this.httpClient.get('http://localhost:8080/api/v1/users/image/' + this.fanaticdata.id)
-    .subscribe(
-      res => {
-        this.retrieveResonse = res;
-        this.base64Data = this.retrieveResonse.image;
-        this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
-      });
+    this.MultimediaService.getImageByUserId(this.fanaticdata.id).subscribe((response: any)=>{
+      console.log("response")
+      console.log(response)
+      this.retrievedImage=response.content[0].imagenUrl
+      })
   }
 
 

@@ -1,3 +1,4 @@
+import { MultimediaService } from './../../../services/multimedia/multimedia.service';
 import { HttpClient } from '@angular/common/http';
 import { ArtistService } from './../../../services/artist/artist.service';
 import { Component, OnInit,ViewChild } from '@angular/core';
@@ -9,6 +10,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonService } from 'src/app/services/person/person.service';
+import { Tag } from 'src/app/models/Tag';
 @Component({
   selector: 'app-configuration-artist',
   templateUrl: './configuration-artist.component.html',
@@ -19,6 +21,8 @@ export class ConfigurationArtistComponent implements OnInit {
   artistdata!: Artist;
   userdata!: Person;
   idnumber!:number
+  tag!:Tag
+  setag=false
   vinculos=false
   facebook=false
   facebooklink!:string
@@ -40,10 +44,12 @@ export class ConfigurationArtistComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true})
   paginator!: MatPaginator;
 
-  constructor(private artistService: ArtistService,private userService: PersonService,private dialog:MatDialog,private route:ActivatedRoute,private httpClient: HttpClient) {
+  constructor(private artistService: ArtistService,private userService: PersonService,private dialog:MatDialog,private route:ActivatedRoute,private httpClient: HttpClient,
+    private MultimediaService:MultimediaService) {
     this.artistdata = {} as Artist;
     this.userdata = {} as   Person;
     this.dataSource = new MatTableDataSource<any>();
+    this.tag={}as Tag;
   }
 
   ngOnInit():void{
@@ -59,16 +65,20 @@ export class ConfigurationArtistComponent implements OnInit {
     
     
   }
+  AddTag(){
+    if(this.setag==false){
 
+      this.setag=true
+  
+    }else{
+      this.setag=false
+    }
+  }
   AddGenders(){
-    var n = this.aleatorygender.length;
-    console.log(n);
-    var i = Math.floor(Math.random() * (n-0)) + 0;
-    console.log(i);
-    var genderselection = this.aleatorygender[i];
-    console.log(genderselection)
-    this.arraygenders.push(genderselection);
-    console.log(this.arraygenders);
+    
+    this.artistService.createTag(this.artistdata.id,this.tag).subscribe((response:any)=>{
+      this.arraygenders.push(this.tag.name);
+    })
   }
 
   getAllArtists() {
@@ -111,6 +121,7 @@ updatefacebookaccount(){
   this.artistService.updatefacebook(this.artistdata.id,this.artistdata).subscribe((response: any)=>{
     console.log(response)
         this.facebooklink=response.facebookLink
+        console.log(this.facebooklink)
   })
 }
 
@@ -254,42 +265,52 @@ getinstagramlink(){
 }
 
 selectedFile!: File;
+imagenMin!: File;
 public onFileChanged(event:any) {
   //Select File
-  this.selectedFile = event.target.files[0];
-  const uploadImageData = new FormData();
-    uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
-  console.log(this.selectedFile)
-  this.httpClient.put("http://localhost:8080/api/v1/users/"+this.userdata.id+"/updatephoto", uploadImageData, { observe: 'response' })
-  .subscribe((response) => {
-    if (response.status === 200) {
-      console.log('Image uploaded successfully');
-      this.getImage()
-    } else {
-       console.log('Image not uploaded successfully')
-    }
-  }
-  );
+    this.selectedFile = event.target.files[0];
+    const fr = new FileReader();
+    fr.onload = (evento: any) => {
+      this.imagenMin = evento.target.result;
+    };
+    fr.readAsDataURL(this.selectedFile);
+    console.log("image")
+    this.MultimediaService.getImageByUserId(this.userdata.id).subscribe((response: any)=>{
+
+           if(response.content.length){
+                 console.log(response.content[0])
+                 this.MultimediaService.delete(response.content[0].id).subscribe((response: any)=>{
+                 
+                  this.MultimediaService.createimageforuser(this.selectedFile,this.userdata.id).subscribe((response: any)=>{
+                           console.log("actualizado")
+                           this.retrievedImage=response.imagenUrl
+                  })
+                })
+
+           }else{
+            console.log("sin imagen")
+            this.MultimediaService.createimageforuser(this.selectedFile,this.userdata.id).subscribe((response: any)=>{
+                    this.retrievedImage=response.imagenUrl
+            })
+           }
+
+    })
+   
+  
 
 
-
-
+   
 
 }
 retrievedImage: any;
   base64Data: any;
   retrieveResonse: any;
-getImage(){
-  console.log("artist")
-  console.log(this.artistdata)
-  this.httpClient.get('http://localhost:8080/api/v1/users/image/' + this.artistdata.id)
-  .subscribe(
-    res => {
-      this.retrieveResonse = res;
-      this.base64Data = this.retrieveResonse.image;
-      this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
-    });
-}
+  getImage(){
+      this.MultimediaService.getImageByUserId(this.artistdata.id).subscribe((response: any)=>{
+             this.retrievedImage=response.content[0].imagenUrl
+      })
+  }
+
 
 
 updatepassword() {

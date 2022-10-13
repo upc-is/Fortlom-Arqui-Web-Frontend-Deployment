@@ -10,13 +10,12 @@
       <mat-card [style.width]="'50%'">
         <div fxLayout="row">
           <div fxFlex="10">
-            <img src="https://www.cultura.gob.ar/media/uploads/musicos2.jpg"
-                 alt="Smiley face" width="100%">
+            <app-imageforlist [artist]="i.id"></app-imageforlist>
           </div>
 
           <div fxFlex fxFlexAlign="center">
             <div fxLayout="row">
-              This is artist {{i.id}}
+              This is artist {{i.realname}} {{i.lastname}}
             </div>
             <div fxLayout="row">
               <mat-icon [style.color]="'orange'">star</mat-icon>
@@ -30,15 +29,7 @@
               <app-rate [idcomment]="i.id" id="rateartist"></app-rate>
 
           </div>
-            {{i['artistfollowers']}}
-            <a mat-button (click)="follow(i)" target="_blank" id="followartistasfan">
-              <mat-icon>favorite</mat-icon>
-              FOLLOW
-            </a>
-            <a mat-button (click)="unfollow(i)" target="_blank" id="unfollowartistasfan">
-              <mat-icon>favorite</mat-icon>
-              UNFOLLOW
-            </a>
+            <app-follows [artist]="i"   [user]="idnumber"></app-follows>
 
         </div>
       </mat-card>
