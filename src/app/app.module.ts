@@ -38,6 +38,9 @@ import { SendEmailComponent } from './pages/ForgotPassword/send-email/send-email
 import { DialogOverviewReportDialog } from './pages/publication/post/dialogreport/dialogreport.component';
 import { DialogreportforumComponent } from './pages/ForumPage/dialogreportforum/dialogreportforum.component';
 import { DialogreportcommentComponent } from './pages/Fanatic/Fanatic-Forumcomment/dialogreportcomment/dialogreportcomment.component';
+import { ChatComponent } from './pages/chat/chat/chat.component';
+import { MessageComponent } from './pages/chat/message/message.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,9 @@ import { DialogreportcommentComponent } from './pages/Fanatic/Fanatic-Forumcomme
     ChangePasswordComponent,
     DialogOverviewReportDialog,
     DialogreportforumComponent,
-    DialogreportcommentComponent
+    DialogreportcommentComponent,
+    ChatComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +87,7 @@ import { DialogreportcommentComponent } from './pages/Fanatic/Fanatic-Forumcomme
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    
+    CommonModule
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent]

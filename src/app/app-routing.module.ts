@@ -20,6 +20,7 @@ import { PostPageComponent } from './pages/publication/post-page/post-page.compo
 import { LoginComponent } from './pages/Login/Login.component';
 import { LoginGuard } from './guard/login.guard';
 import { SendEmailComponent } from './pages/ForgotPassword/send-email/send-email.component';
+import { ChatComponent } from './pages/chat/chat/chat.component';
 
 const routes: Routes = [
 
@@ -50,7 +51,7 @@ const routes: Routes = [
   {path:'registerfanatic',component:RegisterFanaticComponent},
   { path: 'sendemail', component: SendEmailComponent, canActivate: [LoginGuard] , data: { expectedRol: ['Role_Artist','Role_Fanatic'] }},
   { path: 'change-password/:tokenPassword', component: ChangePasswordComponent, canActivate: [LoginGuard], data: { expectedRol: ['Role_Artist','Role_Fanatic'] } },
-
+  {path:'fortlomchat',component:ChatComponent}
 
 ];
 
