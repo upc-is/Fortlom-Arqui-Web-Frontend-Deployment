@@ -28,20 +28,22 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage(){
-    let newMessage: Message = { text: this.textInput, date: "", userOwner: true};
+    if(this.textInput != ""){
+      let newMessage: Message = { text: this.textInput, date: "", userOwner: true};
 
-    this.messages.push(newMessage);
+      this.messages.push(newMessage);
 
-    let messageBack: TextMessage = { "firstname": environment.firstName, "text": this.textInput}
-    if(this.BACK_ENABLED){
-      this.chatService.sendMessage(messageBack)
-      .subscribe((res: ResponseMessage) => {
-        let messageReturn: Message = { text: res.responseMessage, date: new Date().toDateString(), userOwner: false}
-        this.messages.push(messageReturn);
+      let messageBack: TextMessage = { "firstname": environment.firstName, "text": this.textInput}
+      if(this.BACK_ENABLED){
+        this.chatService.sendMessage(messageBack)
+        .subscribe((res: ResponseMessage) => {
+          let messageReturn: Message = { text: res.responseMessage, date: new Date().toDateString(), userOwner: false}
+          this.messages.push(messageReturn);
 
-      });
+        });
+      }
+      this.textInput = '';
     }
-    this.textInput = '';
   }
 
   onKey(event: any){
