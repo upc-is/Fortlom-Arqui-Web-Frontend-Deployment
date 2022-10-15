@@ -23,6 +23,16 @@
     background-color:lightskyblue;
 }
 
+.headbar {
+    border-top: 2px solid grey;
+    height: 12%;
+    color: white;
+    background-color:black;
+    text-align: center;
+    padding-top: 30px;
+    font-size: x-large;
+}
+
 .input-text-message {
     height: 100%;
     width: 80%;
@@ -37,4 +47,12 @@
 
 .padding{
     padding-bottom: 50pt;
+  }
+
+.logo{
+    border-radius: 10%;
+  
+    width: 60px;
+    display: block;
+    cursor: pointer;
   }
