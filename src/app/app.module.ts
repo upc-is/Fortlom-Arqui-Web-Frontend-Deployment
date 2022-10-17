@@ -42,6 +42,8 @@ import { DialogOverviewReportDialog } from './pages/publication/post/dialogrepor
 import { DialogreportforumComponent } from './pages/ForumPage/dialogreportforum/dialogreportforum.component';
 import { DialogreportcommentComponent } from './pages/Fanatic/Fanatic-Forumcomment/dialogreportcomment/dialogreportcomment.component';
 import { ImageforlistComponent } from './pages/Fanatic/imageforlist/imageforlist.component';
+import { MessageComponent } from './pages/chat/message/message.component';
+import { ChatComponent } from './pages/chat/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +82,9 @@ import { ImageforlistComponent } from './pages/Fanatic/imageforlist/imageforlist
     OpinionComponent,
     OpinionpublicationComponent,
     FollowsComponent,
-    ImageforlistComponent
+    ImageforlistComponent,
+    ChatComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
