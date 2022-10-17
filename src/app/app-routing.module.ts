@@ -51,8 +51,8 @@ const routes: Routes = [
   {path:'registerfanatic',component:RegisterFanaticComponent},
   { path: 'sendemail', component: SendEmailComponent, canActivate: [LoginGuard] , data: { expectedRol: ['Role_Artist','Role_Fanatic','Role_Upgrade_Artist'] }},
   { path: 'change-password/:tokenPassword', component: ChangePasswordComponent, canActivate: [LoginGuard], data: { expectedRol: ['Role_Artist','Role_Fanatic','Role_Upgrade_Artist'] } },
-  {path:'HomeArtist/:id/fortlomchat',component:ChatComponent},
-  {path:'HomeFanatic/:id/fortlomchat',component:ChatComponent}
+  {path:'HomeArtist/:id/fortlomchat',component:ChatComponent, canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist','Role_Upgrade_Artist'] }},
+  {path:'HomeFanatic/:id/fortlomchat',component:ChatComponent, canActivate: [FanaticGuard], data: { expectedRol: ['Role_Fanatic'] }}
 
 ];
 
