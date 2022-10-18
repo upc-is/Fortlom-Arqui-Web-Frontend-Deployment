@@ -11,7 +11,7 @@ import { Follow } from 'src/app/models/follow';
 export class FollowService {
 
 
-  basePath =  'http://localhost:8085/api/v1/supportservice';
+  basePath =  'https://fortlom-support.herokuapp.com/api/v1/supportservice';
   
   
   httpOptions = {

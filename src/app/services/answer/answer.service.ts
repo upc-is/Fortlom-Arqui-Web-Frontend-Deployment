@@ -9,7 +9,7 @@ import { Opinion } from 'src/app/models/Opinion';
 export class AnswerService {
 
 
-  basePath ='http://localhost:8084/api/v1/answerservice';
+  basePath ='https://fortlom-answer.herokuapp.com/api/v1/answerservice';
   
   
   httpOptions = {

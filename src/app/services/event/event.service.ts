@@ -13,7 +13,7 @@ export class EventService {
 
 
 
-basePath = 'http://localhost:8082/api/v1/contentservice';
+basePath = 'https://fortlom-content.herokuapp.com/api/v1/contentservice';
 
 httpOptions = {
   headers: new HttpHeaders({

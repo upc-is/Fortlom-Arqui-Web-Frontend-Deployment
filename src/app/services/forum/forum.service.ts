@@ -10,7 +10,7 @@ import { ForumRules } from 'src/app/models/ForumRules';
 })
 export class ForumService {
 
-  basePath = 'http://localhost:8083/api/v1/forumservice';
+  basePath = 'https://fortlom-interaction.herokuapp.com/api/v1/forumservice';
  
   httpOptions = {
     headers: new HttpHeaders({

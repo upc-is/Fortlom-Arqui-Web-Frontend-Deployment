@@ -9,7 +9,7 @@ import { Report } from 'src/app/models/report';
 })
 export class ReportService {
 
-  basePath = 'http://localhost:8087/api/v1/reportservice';
+  basePath = 'https://fortlom-report.herokuapp.com/api/v1/reportservice';
 
   
   httpOptions = {

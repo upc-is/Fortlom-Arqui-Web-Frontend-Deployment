@@ -17,7 +17,7 @@ import { Comment } from 'src/app/models/comment';
 })
 export class CommentService {
 
-  basePath =  'http://localhost:8084/api/v1/answerservice'
+  basePath =  'https://fortlom-answer.herokuapp.com/api/v1/answerservice'
  
 
 httpOptions = {

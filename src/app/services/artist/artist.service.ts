@@ -11,7 +11,7 @@ import { Tag } from 'src/app/models/Tag';
 export class ArtistService {
 
 
-  basePath = 'http://localhost:8081/api/v1/userservice/artists';
+  basePath = 'https://fortlom-account.herokuapp.com/api/v1/userservice/artists';
 
   httpOptions = {
     headers: new HttpHeaders({
