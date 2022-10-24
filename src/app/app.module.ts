@@ -1,3 +1,8 @@
+import { DeleteespecComponent } from './pages/admin/deleteespec/deleteespec.component';
+import { NavegationComponent } from './pages/admin/navegation/navegation.component';
+import { DeleteContentComponent } from './pages/admin/deleteContent/deleteContent.component';
+import { CreateContentComponent } from './pages/admin/createContent/createContent.component';
+import { BanPersonComponent } from './pages/admin/banPerson/banPerson.component';
 import { FollowsComponent } from './pages/Fanatic/follows/follows.component';
 import { OpinionpublicationComponent } from './pages/Opinionpublication/Opinionpublication.component';
 import { OpinionComponent } from './pages/Opinion/Opinion.component';
@@ -44,6 +49,7 @@ import { DialogreportcommentComponent } from './pages/Fanatic/Fanatic-Forumcomme
 import { ImageforlistComponent } from './pages/Fanatic/imageforlist/imageforlist.component';
 import { MessageComponent } from './pages/chat/message/message.component';
 import { ChatComponent } from './pages/chat/chat/chat.component';
+import { HomeComponent } from './pages/admin/home/home.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +90,13 @@ import { ChatComponent } from './pages/chat/chat/chat.component';
     FollowsComponent,
     ImageforlistComponent,
     ChatComponent,
-    MessageComponent
+    MessageComponent,
+    HomeComponent,
+    BanPersonComponent,
+    CreateContentComponent,
+    DeleteContentComponent,
+    NavegationComponent,
+    DeleteespecComponent
   ],
   imports: [
     BrowserModule,

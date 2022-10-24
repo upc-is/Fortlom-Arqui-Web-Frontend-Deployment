@@ -1,0 +1,36 @@
+
+<app-navegation></app-navegation>
+<p class="text">Elije el tipo de contenido</p>
+<mat-form-field appearance="fill" class="example-full-width">
+  <mat-label>Elija un contenido</mat-label>
+  <mat-select [(ngModel)]="selectedValue">
+    <mat-option value="option1">Evento</mat-option>
+    <mat-option value="option3">Publicación</mat-option>
+  </mat-select>
+</mat-form-field>
+<p class="text">Description:</p>
+
+<form class="example-full-width">
+
+<table  style="width:100%">
+  <tr>
+    <th>
+      <mat-form-field  appearance="fill" class="box">
+  
+        <textarea matInput ></textarea>
+      </mat-form-field>
+    </th>
+    <th>
+      <img src={{img}}>
+      <div>
+      <input style="display:none" type="file" id="my-file" (change)="onFileChanged($event)">
+      <button mat-raised-button color="primary"  onclick="document.getElementById('my-file').click()">Seleccionar imagen</button>
+    </div>
+    </th>
+  </tr>
+</table>
+
+
+<button mat-raised-button color="primary">Crear</button>
+ 
+</form>

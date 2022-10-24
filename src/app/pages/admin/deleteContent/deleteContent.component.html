@@ -1,0 +1,38 @@
+
+<app-navegation></app-navegation>
+<p class="text">Elije el tipo de contenido</p>
+<mat-form-field appearance="fill" class="example-full-width">
+  <mat-label>Elija un contenido</mat-label>
+  <mat-select [(ngModel)]="selectedValue">
+    <mat-option value="option1">Evento</mat-option>
+    <mat-option value="option3">Publicación</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div class="erd">
+<table style="width:100%">
+ <tr>
+  <th>
+    Nombre:Lorem
+  </th>
+  <th>
+    Autor:Artista
+  </th>
+  <th>
+    description:Lorem
+  </th>
+  <th>
+    <button mat-raised-button (click)="select(1)">
+      <mat-icon>remove_red_eye</mat-icon>
+    </button>
+   
+  </th>
+ </tr>
+
+
+
+
+
+</table>
+
+</div>

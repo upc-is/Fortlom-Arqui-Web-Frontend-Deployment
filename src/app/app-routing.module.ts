@@ -1,3 +1,6 @@
+import { DeleteespecComponent } from './pages/admin/deleteespec/deleteespec.component';
+import { DeleteContentComponent } from './pages/admin/deleteContent/deleteContent.component';
+import { CreateContentComponent } from './pages/admin/createContent/createContent.component';
 import { ChangePasswordComponent } from './pages/ForgotPassword/change-password/change-password.component';
 import { RegisterFanaticComponent } from './pages/Register/RegisterFanatic/RegisterFanatic.component';
 import { RegisterArtistComponent } from './pages/Register/RegisterArtist/RegisterArtist.component';
@@ -21,6 +24,8 @@ import { LoginComponent } from './pages/Login/Login.component';
 import { LoginGuard } from './guard/login.guard';
 import { SendEmailComponent } from './pages/ForgotPassword/send-email/send-email.component';
 import { ChatComponent } from './pages/chat/chat/chat.component';
+import { HomeComponent } from './pages/admin/home/home.component';
+import { BanPersonComponent } from './pages/admin/banPerson/banPerson.component';
 
 const routes: Routes = [
 
@@ -52,7 +57,13 @@ const routes: Routes = [
   { path: 'sendemail', component: SendEmailComponent, canActivate: [LoginGuard] , data: { expectedRol: ['Role_Artist','Role_Fanatic','Role_Upgrade_Artist'] }},
   { path: 'change-password/:tokenPassword', component: ChangePasswordComponent, canActivate: [LoginGuard], data: { expectedRol: ['Role_Artist','Role_Fanatic','Role_Upgrade_Artist'] } },
   {path:'HomeArtist/:id/fortlomchat',component:ChatComponent, canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist','Role_Upgrade_Artist'] }},
-  {path:'HomeFanatic/:id/fortlomchat',component:ChatComponent, canActivate: [FanaticGuard], data: { expectedRol: ['Role_Fanatic'] }}
+  {path:'HomeFanatic/:id/fortlomchat',component:ChatComponent, canActivate: [FanaticGuard], data: { expectedRol: ['Role_Fanatic'] }},
+
+  {path:'admin',component:HomeComponent},
+  {path:'admin/create',component:CreateContentComponent},
+  {path:'admin/delete',component:DeleteContentComponent},
+  {path:'admin/delete/:idcontent',component:DeleteespecComponent},
+  {path:'admin/ban',component:BanPersonComponent},
 
 ];
 

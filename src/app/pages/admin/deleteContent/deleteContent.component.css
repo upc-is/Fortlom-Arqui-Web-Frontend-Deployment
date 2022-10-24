@@ -1,0 +1,31 @@
+table {
+    border-spacing: 15px;
+    padding: 5px;
+ }
+
+ th{
+    padding: 5px;
+   
+ }
+ td{
+    padding: 5px;
+ }
+ tr{
+    background-color:#D9D9D9;
+    
+ }
+
+ .text{
+    font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 40px;
+line-height: 47px;
+padding: 15px;
+}
+.example-full-width{
+
+    padding: 15px;
+
+
+}

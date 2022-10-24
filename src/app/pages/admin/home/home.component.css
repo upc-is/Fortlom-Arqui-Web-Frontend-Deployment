@@ -1,0 +1,53 @@
+
+  .example-container {
+   
+    margin: 10px;
+   
+   
+  }
+  table, th, td {
+   
+    padding: 10px;
+  }
+  table {
+    border-spacing: 15px;
+  }
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+ 
+  }
+  .centerword{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  .set{
+  
+    padding: 5px;
+    text-align: center
+  }
+  .content{
+    height: 750px;
+    background-color: #fff;
+  }
+  .name{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 42px;
+    color: #FFFFFF;
+  }
+  .side{
+    background-color: black;
+  }
+  .button{
+    padding: 0;
+    border: none;
+    background: none;
+
+  }
