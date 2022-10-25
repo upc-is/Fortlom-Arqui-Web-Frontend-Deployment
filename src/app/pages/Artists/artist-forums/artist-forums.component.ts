@@ -28,8 +28,8 @@ export class ArtistForumsComponent implements OnInit {
   isEditMode = false;
   numerot:number=1
   form:FormGroup=new FormGroup({
-  ForumName!:new FormControl('',Validators.required),
-  ForumDescription!:new FormControl('',[Validators.required,Validators.maxLength(40)])
+  ForumName:new FormControl('',Validators.required),
+  ForumDescription:new FormControl('',[Validators.required,Validators.maxLength(40)])
 });
 idnumber!:number;
   

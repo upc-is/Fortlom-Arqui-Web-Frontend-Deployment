@@ -1,3 +1,5 @@
+import { AdminGuard } from './guard/admin/admin.guard';
+import { LoginadminComponent } from './pages/admin/loginadmin/loginadmin.component';
 import { DeleteespecComponent } from './pages/admin/deleteespec/deleteespec.component';
 import { DeleteContentComponent } from './pages/admin/deleteContent/deleteContent.component';
 import { CreateContentComponent } from './pages/admin/createContent/createContent.component';
@@ -59,11 +61,12 @@ const routes: Routes = [
   {path:'HomeArtist/:id/fortlomchat',component:ChatComponent, canActivate: [ArtistGuard], data: { expectedRol: ['Role_Artist','Role_Upgrade_Artist'] }},
   {path:'HomeFanatic/:id/fortlomchat',component:ChatComponent, canActivate: [FanaticGuard], data: { expectedRol: ['Role_Fanatic'] }},
 
-  {path:'admin',component:HomeComponent},
-  {path:'admin/create',component:CreateContentComponent},
-  {path:'admin/delete',component:DeleteContentComponent},
-  {path:'admin/delete/:idcontent',component:DeleteespecComponent},
-  {path:'admin/ban',component:BanPersonComponent},
+  {path:'admin',component:HomeComponent,canActivate: [AdminGuard],data: { expectedRol: ['Role_Admin'] }},
+  {path:'adminlogin',component:LoginadminComponent,canActivate: [LoginGuard],data: { expectedRol: ['Role_Artist','Role_Fanatic','Role_Upgrade_Artist','Role_Admin'] }},
+  {path:'admin/create',component:CreateContentComponent,canActivate: [AdminGuard],data: { expectedRol: ['Role_Admin'] }},
+  {path:'admin/delete',component:DeleteContentComponent,canActivate: [AdminGuard],data: { expectedRol: ['Role_Admin'] }},
+  {path:'admin/delete/:idcontent',component:DeleteespecComponent,canActivate: [AdminGuard],data: { expectedRol: ['Role_Admin'] }},
+  {path:'admin/ban',component:BanPersonComponent,canActivate: [AdminGuard],data: { expectedRol: ['Role_Admin'] }},
 
 ];
 

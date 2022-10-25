@@ -39,6 +39,11 @@ export class ArtistEventComponent implements OnInit {
   @ViewChild('EventForm', {static: false})
   EventForm!: NgForm;
 
+  @ViewChild('PublicationForm', {static: false})
+  PublicationForm!: NgForm;
+
+
+
   @ViewChild(MatPaginator, {static: true})
   paginator!: MatPaginator;
 

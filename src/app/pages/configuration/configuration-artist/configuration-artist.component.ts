@@ -324,5 +324,9 @@ updatepassword() {
     });
   });
 }
+upgrade(){
+    this.artistService.updateArtistPremium(this.userdata.id).subscribe((response: any)=>{
 
+    })
+}
 }

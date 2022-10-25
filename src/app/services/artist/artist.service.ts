@@ -109,6 +109,13 @@ updateArtistPremium(artistId:number): Observable<Artist>
     retry(2),
     catchError(this.handleError));
 }
+updateArtistBan(artistId:number): Observable<Artist>
+{
+  return this.http.put<Artist>(`${this.basePath}/ban/${artistId}`,this.httpOptions)
+  .pipe(
+    retry(2),
+    catchError(this.handleError));
+}
 checkremiumartistid(artistId:number):Observable<boolean>{
   return this.http.get<boolean>(`${this.basePath}/checkpremium/${artistId}`,this.httpOptions)
   .pipe(

@@ -73,6 +73,24 @@ export class TokenService {
     return true;
   }
 
+  public isadmin(): boolean{
+    if (!this.isLogged()) {
+      console.log("ee")
+      return false;
+    }
+    const token = this.getToken()!;
+    const payload = token.split('.')[1];
+    const payloadDecoded = atob(payload);
+    const values = JSON.parse(payloadDecoded);
+    const roles = values.roles;
+  
+    if (roles.indexOf('Role_Admin') < 0) {
+      return false;
+    }
+    return true;
+  }
+
+
   public isartistupdagre(): boolean {
     if (!this.isLogged()) {
       console.log("ee")

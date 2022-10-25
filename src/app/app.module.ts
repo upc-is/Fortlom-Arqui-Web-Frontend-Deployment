@@ -1,3 +1,4 @@
+import { SetreportComponent } from './pages/admin/setreport/setreport.component';
 import { DeleteespecComponent } from './pages/admin/deleteespec/deleteespec.component';
 import { NavegationComponent } from './pages/admin/navegation/navegation.component';
 import { DeleteContentComponent } from './pages/admin/deleteContent/deleteContent.component';
@@ -50,6 +51,7 @@ import { ImageforlistComponent } from './pages/Fanatic/imageforlist/imageforlist
 import { MessageComponent } from './pages/chat/message/message.component';
 import { ChatComponent } from './pages/chat/chat/chat.component';
 import { HomeComponent } from './pages/admin/home/home.component';
+import { LoginadminComponent } from './pages/admin/loginadmin/loginadmin.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +98,10 @@ import { HomeComponent } from './pages/admin/home/home.component';
     CreateContentComponent,
     DeleteContentComponent,
     NavegationComponent,
-    DeleteespecComponent
+    DeleteespecComponent,
+    LoginadminComponent,
+    LoginadminComponent,
+    SetreportComponent
   ],
   imports: [
     BrowserModule,

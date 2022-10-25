@@ -1,3 +1,4 @@
+import { AdminService } from './../../../services/admin/admin.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from './../../../services/token/token.service';
@@ -7,10 +8,12 @@ import { TokenService } from './../../../services/token/token.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  constructor(private cd:Router,private route:ActivatedRoute,private tokenService:TokenService) { }
+  name!:any
+  constructor(private cd:Router,private route:ActivatedRoute,private tokenService:TokenService,private AdminService:AdminService) { }
 
   ngOnInit() {
+    this.name=this.tokenService.getUserName();
+    console.log(this.name)
   }
   delete(){
     this.cd.navigate(['/admin/delete'])

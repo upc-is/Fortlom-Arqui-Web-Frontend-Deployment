@@ -75,7 +75,13 @@ export class FanaticService {
     return this.http.put<Fanatic>(`${this.basePath}/${id}`, JSON.stringify(item), this.httpOptions)
   
   }
-  
+  updateFanaticBan(id:number): Observable<Fanatic>
+{
+  return this.http.put<Fanatic>(`${this.basePath}/ban/${id}`,this.httpOptions)
+  .pipe(
+    retry(2),
+    catchError(this.handleError));
+}
   // Delete Fanatic
   delete(id: any) {
     return this.http.delete(`${this.basePath}/${id}`, this.httpOptions)
