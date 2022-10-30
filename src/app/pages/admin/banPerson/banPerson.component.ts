@@ -47,8 +47,9 @@ export class BanPersonComponent implements OnInit {
     })
   }
   banartist(id:number){
+    alert("a")
      this.ArtistService.updateArtistBan(id).subscribe((response: any)=>{
-
+               alert("usuario baneado")
      })
 
 
@@ -56,7 +57,7 @@ export class BanPersonComponent implements OnInit {
   banfanbatic(id:number){
 
     this.FanaticService.updateFanaticBan(id).subscribe((response: any)=>{
-
+      alert("usuario baneado")
     })
 
   }

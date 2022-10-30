@@ -1,11 +1,13 @@
 import { AnswerService } from './../../services/answer/answer.service';
 import { Component, OnInit,Input } from '@angular/core';
 import { Content } from 'src/app/models/Content';
-
+import { Opinion } from 'src/app/models/Opinion';
+import { DatePipe } from '@angular/common'
 @Component({
   selector: 'app-Opinionpublication',
   templateUrl: './Opinionpublication.component.html',
-  styleUrls: ['./Opinionpublication.component.css']
+  styleUrls: ['./Opinionpublication.component.css'],
+  providers: [DatePipe]
 })
 export class OpinionpublicationComponent implements OnInit {
 
@@ -15,8 +17,10 @@ export class OpinionpublicationComponent implements OnInit {
   user !: number;
   likes!:number
   dislikes!:number;
+  Opinion!:Opinion
+  date!:Date
   constructor(private AnswerService:AnswerService) {
-
+          this.Opinion = {} as Opinion
    }
 
   ngOnInit() {
@@ -24,6 +28,7 @@ export class OpinionpublicationComponent implements OnInit {
     console.log(this.content)
     this.setlikes(this.content.id)
     this.setdislikes(this.content.id)
+    this.date=new Date();
   }
   
   Increasinglikes(id:number){
@@ -31,8 +36,12 @@ export class OpinionpublicationComponent implements OnInit {
     this.AnswerService.exists(id,this.user).subscribe((response:any)=>{
       console.log(response)
       if(response==false){
-        this.AnswerService.createOpinion(this.user,id).subscribe((response:any)=>{
-
+        this.Opinion.agree=true
+                this.Opinion.registerdate=this.date
+        this.AnswerService.createOpinion(this.user,id,this.Opinion).subscribe((response:any)=>{
+                
+                this.setlikes(this.content.id)
+                this.setdislikes(this.content.id)
         })
       }
       else{
@@ -56,7 +65,10 @@ export class OpinionpublicationComponent implements OnInit {
 
     this.AnswerService.exists(id,this.user).subscribe((response:any)=>{
       if(response==false){
-        this.AnswerService.createOpinion(this.user,id).subscribe((response:any)=>{
+        this.Opinion.agree=false
+               this.Opinion.registerdate=this.date
+        this.AnswerService.createOpinion(this.user,id,this.Opinion).subscribe((response:any)=>{
+               
 
         })
       }

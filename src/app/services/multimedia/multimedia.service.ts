@@ -9,8 +9,8 @@ import { Multimedia } from 'src/app/models/multimedia';
 })
 export class MultimediaService {
 
-  basePath = 'https://fortlom-multimedia.herokuapp.com/api/v1/multimediaservice';
- 
+  //basePath = 'https://fortlom-multimedia.herokuapp.com/api/v1/multimediaservice';
+  basePath = 'http://localhost:8086/api/v1/multimediaservice';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

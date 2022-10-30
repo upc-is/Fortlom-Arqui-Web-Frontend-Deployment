@@ -10,8 +10,8 @@ import { ForumRules } from 'src/app/models/ForumRules';
 })
 export class ForumService {
 
-  basePath = 'https://fortlom-interaction.herokuapp.com/api/v1/forumservice';
- 
+  //basePath = 'https://fortlom-interaction.herokuapp.com/api/v1/forumservice';
+  basePath = 'http://localhost:8083/api/v1/forumservice';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

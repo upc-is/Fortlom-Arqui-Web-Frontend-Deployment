@@ -1,3 +1,4 @@
+import { ArtistService } from 'src/app/services/artist/artist.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,9 +14,11 @@ export class FanaticForumCreateComponent implements OnInit {
 
   public createform!:FormGroup;
   Forum!:Forum
+  isHidden=true
   idnumber!:number;
   dataSource !:MatTableDataSource<any>;
-  constructor(private formBuilder:FormBuilder,private service:ForumService,private route:ActivatedRoute,private cd:Router) {
+  constructor(private formBuilder:FormBuilder,private service:ForumService,
+    private route:ActivatedRoute,private cd:Router,private ArtistService:ArtistService) {
 this.Forum={}as Forum;
 this.Forum.forumname;
 
@@ -32,6 +35,7 @@ this.dataSource = new MatTableDataSource<any>();
     this.idnumber=id;
     let sa=(this.route.snapshot.url[0].path);
     console.log(sa)
+    this.getartist()
   }
 
 crearforo(){
@@ -49,7 +53,11 @@ else{
 
 
 }
-
+getartist(){
+  this.ArtistService.checkartistid(this.idnumber).subscribe((response:any)=>{
+            this.isHidden=response
+  })
+}
 
 AddForum(id:number){
 

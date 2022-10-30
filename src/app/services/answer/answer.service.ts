@@ -9,9 +9,9 @@ import { Opinion } from 'src/app/models/Opinion';
 export class AnswerService {
 
 
-  basePath ='https://fortlom-answer.herokuapp.com/api/v1/answerservice';
+  //basePath ='https://fortlom-answer.herokuapp.com/api/v1/answerservice';
   
-  
+  basePath ='http://localhost:8084/api/v1/answerservice';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -44,8 +44,8 @@ export class AnswerService {
         retry(2),
         catchError(this.handleError));
   }
-  createOpinion(usersId:number,contentid:number): Observable<Opinion> {
-    return this.http.post<Opinion>(`${this.basePath}/user/${usersId}/content/${contentid}/opinions`, this.httpOptions)
+  createOpinion(usersId:number,contentid:number,item:Opinion): Observable<Opinion> {
+    return this.http.post<Opinion>(`${this.basePath}/user/${usersId}/content/${contentid}/opinions`,JSON.stringify(item), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));

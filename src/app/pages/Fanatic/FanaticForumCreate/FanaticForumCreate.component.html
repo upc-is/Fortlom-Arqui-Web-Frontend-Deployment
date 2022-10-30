@@ -1,7 +1,10 @@
 
-
+<div *ngIf="!isHidden">
 <app-fanaticnavigation></app-fanaticnavigation>
-
+</div>
+<div *ngIf="isHidden">
+<app-ArtistNavegation></app-ArtistNavegation>
+</div>
 <mat-card [formGroup]="createform">
   <mat-card-title>Create Forum</mat-card-title>
   <mat-card-header>

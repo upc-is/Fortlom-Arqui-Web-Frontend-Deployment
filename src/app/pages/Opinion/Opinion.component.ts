@@ -1,13 +1,15 @@
+import { Opinion } from './../../models/Opinion';
 import { Publication } from 'src/app/models/publication';
 import { AnswerService } from './../../services/answer/answer.service';
 import { Component, OnInit,Input } from '@angular/core';
 import { Event } from 'src/app/models/event';
 import { Content } from 'src/app/models/Content';
-
+import { DatePipe } from '@angular/common'
 @Component({
   selector: 'app-Opinion',
   templateUrl: './Opinion.component.html',
-  styleUrls: ['./Opinion.component.css']
+  styleUrls: ['./Opinion.component.css'],
+  providers: [DatePipe]
 })
 export class OpinionComponent implements OnInit {
   @Input()
@@ -16,8 +18,10 @@ export class OpinionComponent implements OnInit {
   user !: number;
   likes!:number
   dislikes!:number
+  Opinion!:Opinion
+  date!:Date
   constructor(private AnswerService:AnswerService) {
-
+    this.Opinion = {} as Opinion
    }
 
   ngOnInit() {
@@ -25,6 +29,7 @@ export class OpinionComponent implements OnInit {
     console.log(this.content)
     console.log(this.user)
     this.setlikes(this.content.id)
+    this.date=new Date();
   }
   
   Increasinglikes(id:number){
@@ -33,7 +38,9 @@ export class OpinionComponent implements OnInit {
       console.log(response)
       console.log("entro")
       if(response==false){
-        this.AnswerService.createOpinion(this.user,id).subscribe((response:any)=>{
+        this.Opinion.agree=true
+        this.Opinion.registerdate=this.date
+        this.AnswerService.createOpinion(this.user,id,this.Opinion).subscribe((response:any)=>{
           console.log("existe")
           this.setlikes(this.content.id)
         })
@@ -58,7 +65,9 @@ export class OpinionComponent implements OnInit {
 
     this.AnswerService.exists(id,this.user).subscribe((response:any)=>{
       if(response==false){
-        this.AnswerService.createOpinion(this.user,id).subscribe((response:any)=>{
+        this.Opinion.agree=true
+        this.Opinion.registerdate=this.date
+        this.AnswerService.createOpinion(this.user,id,this.Opinion).subscribe((response:any)=>{
           this.setlikes(this.content.id)
         })
       }

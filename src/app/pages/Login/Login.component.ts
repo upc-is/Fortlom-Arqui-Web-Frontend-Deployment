@@ -74,7 +74,7 @@ onSubmit(){
     console.log(data.token)
   },
   err=>{
-    this.errMsj = err.error.message;
+    console.log("campos mal puestos o inexistentes")
   }
 
 

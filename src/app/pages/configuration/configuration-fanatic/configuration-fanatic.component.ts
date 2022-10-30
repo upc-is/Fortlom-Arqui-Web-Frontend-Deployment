@@ -198,10 +198,15 @@ export class ConfigurationFanaticComponent implements OnInit {
     retrieveResonse: any;
   getImage(){
     this.MultimediaService.getImageByUserId(this.fanaticdata.id).subscribe((response: any)=>{
-      console.log("response")
-      console.log(response)
-      this.retrievedImage=response.content[0].imagenUrl
-      })
+      if(response.number==0){
+        this.retrievedImage="https://cdn.discordapp.com/attachments/1008578583251406990/1031677299101286451/unknown.png"
+       }
+       else{
+        this.retrievedImage=response.content[0].imagenUrl
+       }
+      },err=>{
+        this.retrievedImage="https://cdn.discordapp.com/attachments/1008578583251406990/1031677299101286451/unknown.png"
+    })
   }
 
 

@@ -11,6 +11,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonService } from 'src/app/services/person/person.service';
 import { Tag } from 'src/app/models/Tag';
+
 @Component({
   selector: 'app-configuration-artist',
   templateUrl: './configuration-artist.component.html',
@@ -307,7 +308,16 @@ retrievedImage: any;
   retrieveResonse: any;
   getImage(){
       this.MultimediaService.getImageByUserId(this.artistdata.id).subscribe((response: any)=>{
-             this.retrievedImage=response.content[0].imagenUrl
+             if(response.number==0){
+              this.retrievedImage="https://cdn.discordapp.com/attachments/1008578583251406990/1031677299101286451/unknown.png"
+
+             }
+             else{
+              this.retrievedImage=response.content[0].imagenUrl
+             }
+            
+             
+      },err=>{
       })
   }
 
@@ -326,7 +336,7 @@ updatepassword() {
 }
 upgrade(){
     this.artistService.updateArtistPremium(this.userdata.id).subscribe((response: any)=>{
-
+              alert("mejorada")
     })
 }
 }

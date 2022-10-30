@@ -11,7 +11,8 @@ import { Tag } from 'src/app/models/Tag';
 export class ArtistService {
 
 
-  basePath = 'https://fortlom-account.herokuapp.com/api/v1/userservice/artists';
+  //basePath = 'https://fortlom-account.herokuapp.com/api/v1/userservice/artists';
+  basePath = 'http://localhost:8081/api/v1/userservice/artists';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -123,9 +124,12 @@ checkremiumartistid(artistId:number):Observable<boolean>{
     catchError(this.handleError));
 }
 
-
-
-
+checkartistid(artistId:number):Observable<boolean>{
+  return this.http.get<boolean>(`${this.basePath}/check/${artistId}`,this.httpOptions)
+  .pipe(
+    retry(2),
+    catchError(this.handleError));
+}
 
 
 }

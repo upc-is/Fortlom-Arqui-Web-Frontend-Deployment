@@ -13,8 +13,9 @@ export class AdminService {
       'Content-Type': 'application/json',
     })
   }
-  basePath = 'http://localhost:8088/auth';
-  basePath2 = 'http://localhost:8088/api/v1/administrationservice/admins';
+  basePath = 'http://localhost:8081/auth';
+  basePath2 = 'http://localhost:8081/api/v1/userservice/users/users/Username';
+               
   constructor(private http:HttpClient) { }
   handleError(error: HttpErrorResponse) {
   if (error.error instanceof ErrorEvent) {
@@ -40,7 +41,7 @@ export class AdminService {
   
   }
   GetAdmin(name:string){
-    return this.http.get<any>(`${this.basePath2}/name/${name}`, this.httpOptions)
+    return this.http.get<any>(`${this.basePath2}/${name}`, this.httpOptions)
     .pipe(
       retry(2),
       catchError(this.handleError));
