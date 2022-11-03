@@ -35,7 +35,8 @@ export class ConfigurationArtistComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
   arraygenders : string[] = [];
   aleatorygender: string[] = ["Progresive Rock","Sound Engineering","2000 Wave","Complex","2010 Wave","Hard Rock","Classic Metal"]
-
+ 
+ 
   @ViewChild('UserForm', {static: false})
   UserForm!: NgForm;
 

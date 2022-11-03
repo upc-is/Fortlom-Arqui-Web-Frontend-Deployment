@@ -9,8 +9,8 @@ import { Person } from 'src/app/models/Person';
 })
 export class PersonService {
 
-  //basePath = 'https://fortlom-account.herokuapp.com/api/v1/userservice/users';
-  basePath = 'http://localhost:8081/api/v1/userservice/users';
+  basePath = 'https://fortlom-account.herokuapp.com/api/v1/userservice/users';
+  //basePath = 'http://localhost:8081/api/v1/userservice/users';
   
   httpOptions = {
     headers: new HttpHeaders({

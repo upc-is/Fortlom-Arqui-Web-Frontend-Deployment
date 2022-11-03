@@ -18,8 +18,8 @@ export class AuthService {
       'Content-Type': 'application/json',
     })
   }
-  //basePath = 'https://fortlom-account.herokuapp.com/auth';
-  basePath = 'http://localhost:8081/auth';
+  basePath = 'https://fortlom-account.herokuapp.com/auth';
+  //basePath = 'http://localhost:8081/auth';
   constructor(private http:HttpClient) { }
   handleError(error: HttpErrorResponse) {
   if (error.error instanceof ErrorEvent) {
