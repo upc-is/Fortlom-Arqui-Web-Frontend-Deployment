@@ -9,7 +9,9 @@ const sessionId = uuid.v4();
 
 async function runIntent(projectId, requestText) {
 // A unique identifier for the given session
-const sessionClient = new dialogflow.SessionsClient();
+const sessionClient = new dialogflow.SessionsClient({
+    keyFilename: 'C:/Users/giuse/Documents/GitHub/Fortlom-Arqui-Web-Frontend/src/app/pages/chat/backend/fortlombot-dialogflow.json'
+});
 
 const sessionPath = sessionClient.projectAgentSessionPath(
     projectId,
